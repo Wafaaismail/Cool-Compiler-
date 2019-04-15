@@ -1,12 +1,5 @@
 token literal names:
 null
-null
-null
-null
-'(*'
-'*)'
-null
-null
 'inherits'
 'class'
 'if'
@@ -25,6 +18,26 @@ null
 'new'
 'true'
 'false'
+null
+null
+null
+'<-'
+'=>'
+'='
+'<'
+'>'
+'<='
+'+'
+'-'
+'/'
+'*'
+'~'
+null
+null
+'(*'
+'*)'
+null
+null
 '{'
 '}'
 '('
@@ -34,29 +47,10 @@ null
 ','
 '.'
 '@'
-'<-'
-'=>'
-'='
-'<'
-'>'
-'+'
-'-'
-'/'
-'*'
-'~'
-null
-null
 null
 
 token symbolic names:
 null
-NUMBER
-WHITESPACE
-NEWLINE
-OPEN_COMMENT
-CLOSE_COMMENT
-COMMENT
-ONE_LINE_COMMENT
 INHERITS
 CLASS
 IF
@@ -75,8 +69,28 @@ NOT
 NEW
 TRUE
 FALSE
-OPEN_CARLY
-CLOSE_CARLY
+NUMBER
+LITERAL
+ID
+ASSIGN_OPERATOR
+CASE_ARROW
+EQUAL
+SMALLER_THAN
+BIGGER_THAN
+LESS_THAN_OR_EQUAL
+PLUS
+MINUS
+DIVIDED
+MULTIPLY
+INTEGER_NEGATIVE
+WHITESPACE
+NEWLINE
+OPEN_COMMENT
+CLOSE_COMMENT
+COMMENT
+ONE_LINE_COMMENT
+OPEN_CURLY
+CLOSE_CURLY
 OPENP_RANSIS
 CLOSE_PRANSIS
 SEMICOLUN
@@ -84,19 +98,7 @@ COLUN
 COMMA
 DOT
 AT
-ASSIGN_OPERATOR
-CASE_ARROW
-EQUAL
-SMALLERTHAN
-BIGGERTHAN
-PLUS
-MINUS
-DIVIDED
-MULTIPLY
-INTEGER_NEGATIVE
-LETTER
-ID
-LITERAL
+ERROR
 
 rule names:
 stats
@@ -104,4 +106,4 @@ stat
 
 
 atn:
-[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 49, 16, 4, 2, 9, 2, 4, 3, 9, 3, 3, 2, 6, 2, 8, 10, 2, 13, 2, 14, 2, 9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 4, 2, 4, 2, 2, 2, 14, 2, 7, 3, 2, 2, 2, 4, 11, 3, 2, 2, 2, 6, 8, 5, 4, 3, 2, 7, 6, 3, 2, 2, 2, 8, 9, 3, 2, 2, 2, 9, 7, 3, 2, 2, 2, 9, 10, 3, 2, 2, 2, 10, 3, 3, 2, 2, 2, 11, 12, 7, 3, 2, 2, 12, 13, 7, 42, 2, 2, 13, 14, 7, 3, 2, 2, 14, 5, 3, 2, 2, 2, 3, 9]
+[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 50, 16, 4, 2, 9, 2, 4, 3, 9, 3, 3, 2, 6, 2, 8, 10, 2, 13, 2, 14, 2, 9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 4, 2, 4, 2, 2, 2, 14, 2, 7, 3, 2, 2, 2, 4, 11, 3, 2, 2, 2, 6, 8, 5, 4, 3, 2, 7, 6, 3, 2, 2, 2, 8, 9, 3, 2, 2, 2, 9, 7, 3, 2, 2, 2, 9, 10, 3, 2, 2, 2, 10, 3, 3, 2, 2, 2, 11, 12, 7, 21, 2, 2, 12, 13, 7, 30, 2, 2, 13, 14, 7, 21, 2, 2, 14, 5, 3, 2, 2, 2, 3, 9]

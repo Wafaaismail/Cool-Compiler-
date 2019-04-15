@@ -16,13 +16,14 @@ public class CoolParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		NUMBER=1, WHITESPACE=2, NEWLINE=3, OPEN_COMMENT=4, CLOSE_COMMENT=5, COMMENT=6, 
-		ONE_LINE_COMMENT=7, INHERITS=8, CLASS=9, IF=10, THEN=11, FI=12, WHILE=13, 
-		LOOP=14, POOL=15, LET=16, IN=17, CASE=18, OF=19, ESAC=20, ISVOID=21, NOT=22, 
-		NEW=23, TRUE=24, FALSE=25, OPEN_CARLY=26, CLOSE_CARLY=27, OPENP_RANSIS=28, 
-		CLOSE_PRANSIS=29, SEMICOLUN=30, COLUN=31, COMMA=32, DOT=33, AT=34, ASSIGN_OPERATOR=35, 
-		CASE_ARROW=36, EQUAL=37, SMALLERTHAN=38, BIGGERTHAN=39, PLUS=40, MINUS=41, 
-		DIVIDED=42, MULTIPLY=43, INTEGER_NEGATIVE=44, LETTER=45, ID=46, LITERAL=47;
+		INHERITS=1, CLASS=2, IF=3, THEN=4, FI=5, WHILE=6, LOOP=7, POOL=8, LET=9, 
+		IN=10, CASE=11, OF=12, ESAC=13, ISVOID=14, NOT=15, NEW=16, TRUE=17, FALSE=18, 
+		NUMBER=19, LITERAL=20, ID=21, ASSIGN_OPERATOR=22, CASE_ARROW=23, EQUAL=24, 
+		SMALLER_THAN=25, BIGGER_THAN=26, LESS_THAN_OR_EQUAL=27, PLUS=28, MINUS=29, 
+		DIVIDED=30, MULTIPLY=31, INTEGER_NEGATIVE=32, WHITESPACE=33, NEWLINE=34, 
+		OPEN_COMMENT=35, CLOSE_COMMENT=36, COMMENT=37, ONE_LINE_COMMENT=38, OPEN_CURLY=39, 
+		CLOSE_CURLY=40, OPENP_RANSIS=41, CLOSE_PRANSIS=42, SEMICOLUN=43, COLUN=44, 
+		COMMA=45, DOT=46, AT=47, ERROR=48;
 	public static final int
 		RULE_stats = 0, RULE_stat = 1;
 	private static String[] makeRuleNames() {
@@ -34,23 +35,25 @@ public class CoolParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, null, "'(*'", "'*)'", null, null, "'inherits'", "'class'", 
-			"'if'", "'then'", "'fi'", "'while'", "'loop'", "'pool'", "'let'", "'in'", 
-			"'case'", "'of'", "'esac'", "'isvoid'", "'not'", "'new'", "'true'", "'false'", 
-			"'{'", "'}'", "'('", "')'", "';'", "':'", "','", "'.'", "'@'", "'<-'", 
-			"'=>'", "'='", "'<'", "'>'", "'+'", "'-'", "'/'", "'*'", "'~'"
+			null, "'inherits'", "'class'", "'if'", "'then'", "'fi'", "'while'", "'loop'", 
+			"'pool'", "'let'", "'in'", "'case'", "'of'", "'esac'", "'isvoid'", "'not'", 
+			"'new'", "'true'", "'false'", null, null, null, "'<-'", "'=>'", "'='", 
+			"'<'", "'>'", "'<='", "'+'", "'-'", "'/'", "'*'", "'~'", null, null, 
+			"'(*'", "'*)'", null, null, "'{'", "'}'", "'('", "')'", "';'", "':'", 
+			"','", "'.'", "'@'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "NUMBER", "WHITESPACE", "NEWLINE", "OPEN_COMMENT", "CLOSE_COMMENT", 
-			"COMMENT", "ONE_LINE_COMMENT", "INHERITS", "CLASS", "IF", "THEN", "FI", 
-			"WHILE", "LOOP", "POOL", "LET", "IN", "CASE", "OF", "ESAC", "ISVOID", 
-			"NOT", "NEW", "TRUE", "FALSE", "OPEN_CARLY", "CLOSE_CARLY", "OPENP_RANSIS", 
-			"CLOSE_PRANSIS", "SEMICOLUN", "COLUN", "COMMA", "DOT", "AT", "ASSIGN_OPERATOR", 
-			"CASE_ARROW", "EQUAL", "SMALLERTHAN", "BIGGERTHAN", "PLUS", "MINUS", 
-			"DIVIDED", "MULTIPLY", "INTEGER_NEGATIVE", "LETTER", "ID", "LITERAL"
+			null, "INHERITS", "CLASS", "IF", "THEN", "FI", "WHILE", "LOOP", "POOL", 
+			"LET", "IN", "CASE", "OF", "ESAC", "ISVOID", "NOT", "NEW", "TRUE", "FALSE", 
+			"NUMBER", "LITERAL", "ID", "ASSIGN_OPERATOR", "CASE_ARROW", "EQUAL", 
+			"SMALLER_THAN", "BIGGER_THAN", "LESS_THAN_OR_EQUAL", "PLUS", "MINUS", 
+			"DIVIDED", "MULTIPLY", "INTEGER_NEGATIVE", "WHITESPACE", "NEWLINE", "OPEN_COMMENT", 
+			"CLOSE_COMMENT", "COMMENT", "ONE_LINE_COMMENT", "OPEN_CURLY", "CLOSE_CURLY", 
+			"OPENP_RANSIS", "CLOSE_PRANSIS", "SEMICOLUN", "COLUN", "COMMA", "DOT", 
+			"AT", "ERROR"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -215,11 +218,11 @@ public class CoolParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\61\20\4\2\t\2\4\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\62\20\4\2\t\2\4\3"+
 		"\t\3\3\2\6\2\b\n\2\r\2\16\2\t\3\3\3\3\3\3\3\3\3\3\2\2\4\2\4\2\2\2\16\2"+
 		"\7\3\2\2\2\4\13\3\2\2\2\6\b\5\4\3\2\7\6\3\2\2\2\b\t\3\2\2\2\t\7\3\2\2"+
-		"\2\t\n\3\2\2\2\n\3\3\2\2\2\13\f\7\3\2\2\f\r\7*\2\2\r\16\7\3\2\2\16\5\3"+
-		"\2\2\2\3\t";
+		"\2\t\n\3\2\2\2\n\3\3\2\2\2\13\f\7\25\2\2\f\r\7\36\2\2\r\16\7\25\2\2\16"+
+		"\5\3\2\2\2\3\t";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
