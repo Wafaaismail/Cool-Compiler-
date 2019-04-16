@@ -3,29 +3,38 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String inputFilePath = "gen/good.cl";
-        String outputFileName = "";
-        char [] temp = inputFilePath.toCharArray();
-        for (int i = 4 ; i < inputFilePath.length() ; i++){
-            if(temp[i]=='.') break;
-            else outputFileName += temp[i];
-        }
-
-
+        String inputFilePath = "testCases/bad.cl";
+        String outputFileName = inputFilePath.substring(
+                10, inputFilePath.lastIndexOf('.')
+        );
+        
         CharStream input = CharStreams.fromFileName(inputFilePath);
         CoolLexer lexer = new CoolLexer(input);
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         tokens.fill();
         List<Token> allTokens = tokens.getTokens();
-        System.out.println(outputFileName);
-        writeUsingBufferedWriter(outputFileName+"-lex",allTokens, allTokens.size());
+        Boolean err = false ;
+        for (int i = 0 ; i < allTokens.size() ; i++){
+            if (allTokens.get(i).getType() == 48) {
+                err = true ;
+                System.out.println("Symbol "
+                        +allTokens.get(i).getText()
+                        + " isn't allowed in line "
+                        +allTokens.get(i).getLine()
+                        +"\n");
+            }
+        }
+        if(!err)
+            writeUsingBufferedWriter(outputFileName+"-lex",allTokens, allTokens.size());
+
     }
 
     private static void writeUsingBufferedWriter(String fileName, List<Token> tokens, int noOfLines) {
@@ -56,5 +65,6 @@ public class Main {
             }
         }
     }
+
 
 }
