@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String inputFilePath = "testCases/bad.cl";
+        String inputFilePath = "testCases/good.cl";
         String outputFileName = inputFilePath.substring(
                 10, inputFilePath.lastIndexOf('.')
         );
@@ -35,12 +35,12 @@ public class Main {
             }
         }
         if(!err)
-            writeUsingBufferedWriter(outputFileName+"-lex",allTokens, allTokens.size());
+            writeUsingBufferedWriter(outputFileName+".cl-lex",allTokens, allTokens.size());
 
     }
 
     private static void writeUsingBufferedWriter(String fileName, List<Token> tokens, int noOfLines) {
-        File file = new File(fileName+".txt");
+        File file = new File(fileName);
         FileWriter fr = null;
         BufferedWriter br = null;
         String dataWithNewLine="" ;
