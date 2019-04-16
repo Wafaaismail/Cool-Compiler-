@@ -14,13 +14,15 @@ public class Main {
         String outputFileName = inputFilePath.substring(
                 10, inputFilePath.lastIndexOf('.')
         );
-        
+
         CharStream input = CharStreams.fromFileName(inputFilePath);
         CoolLexer lexer = new CoolLexer(input);
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         tokens.fill();
         List<Token> allTokens = tokens.getTokens();
+
+        //to detect if there is an error in lexems
         Boolean err = false ;
         for (int i = 0 ; i < allTokens.size() ; i++){
             if (allTokens.get(i).getType() == 48) {
