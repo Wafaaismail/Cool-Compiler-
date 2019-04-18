@@ -1,6 +1,7 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.*;
 import java.util.Arrays;
@@ -10,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String inputFilePath = "testCases/good.cl";
+        String inputFilePath = "testCases/bad.cl";
         String outputFileName = inputFilePath.substring(
                 10, inputFilePath.lastIndexOf('.')
         );
@@ -25,7 +26,7 @@ public class Main {
         //to detect if there is an error in lexems
         Boolean err = false ;
         for (int i = 0 ; i < allTokens.size() ; i++){
-            if (allTokens.get(i).getType() == 48) {
+            if (allTokens.get(i).getType() == 52) {
                 err = true ;
                 System.out.println("Symbol "
                         +allTokens.get(i).getText()
@@ -34,8 +35,15 @@ public class Main {
                         +"\n");
             }
         }
-        if(!err)
+        if(!err){
             writeUsingBufferedWriter(outputFileName+".cl-lex",allTokens, allTokens.size());
+
+            CoolParser parser = new CoolParser(tokens);
+            ParseTree tree = parser.program();
+
+            System.out.println(tree.toStringTree(parser));
+        }
+
 
     }
 
