@@ -55,7 +55,19 @@
   ![result1](https://i.ibb.co/V9r4TTk/Capture.png)
   
 ## Parser:
+  
+  Define the grammer of COOL in Cool.g4 file.
+ 
+### Input:
 
+  file.cl
+  
+### Output:
+
+  for right code, it will produce the parse tree of this code.
+  
+  for wrong one, it will show the error in the file.
+  
 ## Semantic rules:
 
 ## 3 address code generation:
