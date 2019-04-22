@@ -68,6 +68,10 @@
   
   for wrong one, it will show the error in the file.
   
+  * The parse tree for the good example:
+  
+  ![result](https://i.imgur.com/y0WwLej.png)
+  
 ## Semantic rules:
 
 ## 3 address code generation:
