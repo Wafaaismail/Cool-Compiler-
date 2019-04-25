@@ -56,7 +56,7 @@
   
 ## Parser:
   
-  Define the grammer of COOL in Cool.g4 file.
+  Define the grammer of COOL in [Cool.g4](https://github.com/Wafaaismail/Cool-Compiler-/blob/master/src/Cool.g4) file.
  
 ### Input:
 
@@ -68,9 +68,9 @@
   
   for wrong one, it will show the error in the file.
   
-  * The parse tree for the good example:
+  * The parse tree for the for [goodParser.cl](https://github.com/Wafaaismail/Cool-Compiler-/blob/master/testCases/goodParser.cl) example:
   
-  ![result](https://i.imgur.com/y0WwLej.png)
+  ![result](https://i.imgur.com/WcXw5UQ.png)
   
 ## Semantic rules:
 
