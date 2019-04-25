@@ -58,7 +58,7 @@
   
   Define the grammer of COOL in [Cool.g4](https://github.com/Wafaaismail/Cool-Compiler-/blob/master/src/Cool.g4) file.
   
-  To test the grammer, there's a program which checks whether the number is a palindrome of not written in COOL. 
+  To test the grammer, there's a program which checks whether the number is a palindrome or not written in COOL. 
  
 ### Input:
 
