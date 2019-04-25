@@ -57,6 +57,8 @@
 ## Parser:
   
   Define the grammer of COOL in [Cool.g4](https://github.com/Wafaaismail/Cool-Compiler-/blob/master/src/Cool.g4) file.
+  
+  To test the grammer, there's a program which checks whether the number is a palindrome of not written in COOL. 
  
 ### Input:
 
@@ -64,9 +66,9 @@
   
 ### Output:
 
-  for right code, it will produce the parse tree of this code.
+  For right code, it will produce the parse tree of this code.
   
-  for wrong one, it will show the error in the file.
+  For wrong one, it will show the error in the file and where it's.
   
   * The parse tree for the for [goodParser.cl](https://github.com/Wafaaismail/Cool-Compiler-/blob/master/testCases/goodParser.cl) example:
   
