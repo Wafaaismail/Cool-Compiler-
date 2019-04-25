@@ -1,82 +1,136 @@
+// This file contains the grammer of COOL
 grammar Cool;
 
 // Parser Rules
-program
-    : programBlocks
-    ;
+program: programBlocks;
 
 programBlocks
-    : classDefine SEMICOLUN programBlocks
-    | EOF
+    : classDefine SEMICOLUN programBlocks # classes
+    | EOF #eof
     ;
 
 classDefine: CLASS TYPE (INHERITS TYPE)? OPEN_CURLY (feature SEMICOLUN)* CLOSE_CURLY;
 
-feature: ID OPENP_RANSIS (formal (COMMA formal)*)* CLOSE_PRANSIS COLUN TYPE OPEN_CURLY expr CLOSE_CURLY
-    | ID COLUN TYPE (ASSIGN_OPERATOR expr)
+feature: ID OPENP_RANSIS (formal (COMMA formal)*)* CLOSE_PRANSIS COLUN TYPE OPEN_CURLY expr CLOSE_CURLY # method
+    | ID COLUN TYPE (ASSIGN_OPERATOR expr)? # property
     ;
 
 formal: ID COLUN TYPE;
-expr: ID ASSIGN_OPERATOR expr
-    | expr (AT TYPE)?DOT ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS
-    | ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS
-    | IF expr THEN expr ELSE expr FI
-    | WHILE expr LOOP expr POOL
-    | OPEN_CURLY (expr SEMICOLUN)+ CLOSE_CURLY
-    | LET ID COLUN TYPE (ASSIGN_OPERATOR expr)? (COMMA ID COLUN TYPE (ASSIGN_OPERATOR expr)?)* IN expr
-    | CASE expr OF (ID COLUN TYPE CASE_ARROW expr SEMICOLUN)+ESAC
-    | NEW TYPE
-    | ISVOID expr
-    | expr PLUS expr
-    | expr MINUS expr
-    | expr MULTIPLY expr
-    | expr DIVIDED expr
-    | INTEGER_NEGATIVE expr
-    | expr SMALLER_THAN expr
-    | expr LESS_THAN_OR_EQUAL expr
-    | expr EQUAL expr
-    | NOT expr
-    | OPENP_RANSIS expr CLOSE_PRANSIS
-    | ID
-    | INTEGER
-    | LITERAL
-    | TRUE
-    | FALSE
+expr: ID ASSIGN_OPERATOR expr # assignment
+    | expr (AT TYPE)? DOT ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # methodCall
+    | ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # ownMethodCall
+    | IF expr THEN expr ELSE expr FI # if
+    | WHILE expr LOOP expr POOL # while
+    | OPEN_CURLY (expr SEMICOLUN)+ CLOSE_CURLY # block
+    | LET ID COLUN TYPE (ASSIGN_OPERATOR expr)? (COMMA ID COLUN TYPE (ASSIGN_OPERATOR expr)?)* IN expr # letIn
+    | CASE expr OF (ID COLUN TYPE CASE_ARROW expr SEMICOLUN)+ESAC # case
+    | NEW TYPE # new
+    | ISVOID expr # isvoid
+    | expr PLUS expr # plus
+    | expr MINUS expr # minus
+    | expr MULTIPLY expr # multiplication
+    | expr DIVIDED expr # division
+    | INTEGER_NEGATIVE expr # negative
+    | expr SMALLER_THAN expr # smallerThan
+    | expr LESS_THAN_OR_EQUAL expr # lessOREqual
+    | expr EQUAL expr # equal
+    | NOT expr # boolNot
+    | OPENP_RANSIS expr CLOSE_PRANSIS # parentheses
+    | ID # id
+    | INTEGER # int
+    | LITERAL # string
+    | TRUE # true
+    | FALSE # false
     ;
 
 // Lexical Rules
-INHERITS : 'inherits' ;
-CLASS : 'class' ;
-IF  : 'if' ;
-THEN : 'then' ;
-ELSE : 'else';
-FI : 'fi' ;
 
-WHILE : 'while' ;
-LOOP : 'loop' ;
-POOL : 'pool' ;
+fragment A
+   : [aA]
+   ;
+fragment C
+   : [cC]
+   ;
+fragment D
+   : [dD]
+   ;
+fragment E
+   : [eE]
+   ;
+fragment F
+   : [fF]
+   ;
+fragment H
+   : [hH]
+   ;
+fragment I
+   : [iI]
+   ;
+fragment L
+   : [lL]
+   ;
+fragment N
+   : [nN]
+   ;
+fragment O
+   : [oO]
+   ;
+fragment P
+   : [pP]
+   ;
+fragment R
+   : [rR]
+   ;
+fragment S
+   : [sS]
+   ;
+fragment T
+   : [tT]
+   ;
+fragment U
+   : [uU]
+   ;
+fragment V
+   : [vV]
+   ;
+fragment W
+   : [wW]
+   ;
 
-LET  : 'let' ;
-IN   : 'in' ;
+// Keywords
+INHERITS : I N H E R I T S ;
+CLASS : C L A S S ;
+IF  : I F ;
+THEN : T H E N ;
+ELSE : E L S E;
+FI : F I ;
 
-CASE : 'case' ;
-OF   : 'of' ;
-ESAC : 'esac';
+WHILE : W H I L E ;
+LOOP : L O O P ;
+POOL : P O O L ;
 
-ISVOID : 'isvoid' ;
+LET  : L E T ;
+IN   : I N ;
 
-NOT  : 'not' ;
+CASE : C A S E ;
+OF   : O F ;
+ESAC : E S A C;
 
-NEW  : 'new' ;
+ISVOID : I S V O I D ;
 
-TRUE : 'true' ;
-FALSE : 'false' ;
+NOT  : N O T ;
 
-//primative
+NEW  : N E W ;
+
+TRUE : 't' R U E ;
+FALSE : 'f' A L S E ;
+
+
+// primitives
 INTEGER : [0-9]+ ;
-LITERAL :  '"'([a-zA-Z0-9\\: .!@#$%^-]|'+')*'"' ; ////////
+LITERAL :  '"'([a-zA-Z0-9\\: .!@#'$%^-]|'+')*'"' ;
 TYPE: [A-Z][_0-9A-Za-z]*;
-ID : [a-zA-Z][_a-zA-Z0-9]*; //////////////////
+ID : [a-zA-Z][_a-zA-Z0-9]*;
 
 
 ASSIGN_OPERATOR : '<-' ;
@@ -114,8 +168,3 @@ DOT : '.';
 AT : '@';
 
 ERROR : . ;
-
-
-
-
-
