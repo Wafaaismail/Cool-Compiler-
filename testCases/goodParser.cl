@@ -17,8 +17,8 @@ class Main inherits IO {
         i <- ~1;
 	    out_string("enter a string\n");
 	    if pal(in_string())
-	    then out_string("It is palindrome\n")
-	    else out_string("It is not a palindrome\n")
+	    then out_string("It's palindrome\n")
+	    else out_string("It isn't a palindrome\n")
 	    fi;
 	}
     };
