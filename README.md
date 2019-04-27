@@ -26,6 +26,10 @@
    
    >javac Main.java CoolBaseListener.java CoolBaseVisitor.java CoolLexer.java CoolListener.java CoolParser.java CoolVisitor.java
 
+# NOTE Before Running
+  - You should run Main from terminal as it accepts the file as argument like 
+  >java Main.java "testCases/bad.cl"
+  
   * run the project.
 
 # Compiler structure: 
