@@ -65,7 +65,7 @@
    
 
 
-  R run main and give it this input :  > testCases/badParser.cl
+  - Run main and give it this input :  > testCases/badParser.cl
   
   It will show the error in the file and where it's.
   
