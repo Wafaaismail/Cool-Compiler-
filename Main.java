@@ -13,26 +13,25 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         boolean exists ;
-        String inputFilePath = "";
+        String inputFilePath = "", outputFileName = "";
 
         for(String str : args) {
 
-            File tempFile = new File(args);
+            File tempFile = new File(args[0]);
             exists = tempFile.exists();
 
             if(exists)
             {
-                inputFilePath = args;
+                inputFilePath = args[0];
                 break;
+            }else{
+                System.out.println("The File Is Not Exist");
+                return;
             }
 
         }
 
-        if(!exists)
-        {
-            System.out.println("The File Is Not Exist");
-            return;
-        }
+
 
         outputFileName = inputFilePath.substring(inputFilePath.indexOf("/") + 1);
         outputFileName = outputFileName.substring(0, outputFileName.indexOf("."));
