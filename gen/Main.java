@@ -16,7 +16,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         //boolean exists ;
-        String inputFilePath = "", outputFilePath = "";
+        String inputFilePath = "",
+                outputFilePath = "";
+
 
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter file path: ");
@@ -68,6 +70,9 @@ public class Main {
             try{
                 CoolParser parser = new CoolParser(tokens);
                 ParseTree tree = parser.program();
+
+                CoolBaseVisitor baseVisitor = new CoolBaseVisitor();
+                baseVisitor.visit(tree);
 
                 TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
                 viewer.open();

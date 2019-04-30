@@ -6,6 +6,7 @@ class Main inherits A2I {
 		if i < 10
 		then (new IO).out_string("Bad Luck\n")
 		else (new IO).out_string("Good Luck\n")
+		if FALSE then  (new IO).out_string("False\n")
 
 	};
 
