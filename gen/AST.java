@@ -34,6 +34,43 @@ public class AST {
     }
 
     static class Property extends Feature {
+        String name;
+        String type;
+        Boolean flag = false;
+        Expression e;
+
+        public Property(String n, String t, int l){
+            name = n;
+            type = t;
+            lineNo = l;
+            System.out.println("111111" + flag);
+        }
+
+        public Property(String n, String t, int l, Expression e){
+            name = n;
+            type = t;
+            lineNo = l;
+            this.e = e;
+            flag = true;
+            System.out.println("222222" + flag);
+        }
+
+        String getString(String space){
+
+            return space+ "#" + lineNo + " Property :" + name + " - Type:" + type + "\n";
+        }
+
+        @Override
+        void generate(){
+            if(flag){
+                e.generate();
+                prog3AdCode.add(name + " = " + e.getV());
+            }
+        }
+
+        String getV(){
+            return name;
+        }
     }
 
     static class Formal extends ASTNode {
@@ -46,9 +83,23 @@ public class AST {
 
     //    Productions of expr
     static class Expression extends ASTNode {
-        @Override
-        void generate() {
 
+        String type;
+        public String v = "uninitialized";
+        public Expression(){
+            type = "no_type";
+        }
+        String getString(String space){
+
+            return space + "Expression: Type:" + type + "\n";
+        }
+
+        int eval(){
+            return -999999;
+        }
+
+        String getV() {
+            return v;
         }
     }
 
@@ -59,6 +110,32 @@ public class AST {
     }
 
     static class While extends Expression {
+        Expression e1;
+        Expression e2;
+        String before, after;
+
+        public String v;
+        public While(Expression e1, Expression e2){
+            this.e1 = e1;
+            this.e2 = e2;
+            type = "While";
+            before = "BEFORE" + lCounter;
+            after = "AFTER" + lCounter++;
+        }
+
+        String getString(String space){
+            return space + "Expression: Type:" + type + "\n";
+        }
+
+        @Override
+        void gererate(){
+            prog3AdCode.add(before + ": ");
+            e1.gererate();
+            prog3AdCode.add("ifFalse " + e1.getV() + " goto " + after);
+            e2.gererate();
+            prog3AdCode.add("goto " + before);
+            prog3AdCode.add(after + ": ");
+        }
     }
 
     static class BlockOfExpressions extends Expression {
@@ -88,7 +165,25 @@ public class AST {
     static class Id extends Expression {
     }
 
-    static class Int extends Expression {
+    static class IntConst extends Expression {
+        int value;
+        public String v;
+        public IntConst(int val){
+            type = "IntConst";
+            value = val;
+            this.v = Integer.toString(value);
+        }
+        String getString(String space){
+
+            return space + "Expression: type:" + type + " value = " + value + "\n";
+        }
+        int eval(){
+            return value;
+        }
+
+        String getV(){
+            return v;
+        }
     }
 
     static class Literal extends Expression {
