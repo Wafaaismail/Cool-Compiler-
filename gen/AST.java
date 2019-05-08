@@ -39,6 +39,7 @@ public class AST {
         Boolean flag = false;
         Expression e;
 
+        // Construct with 2 string as a parameter & 1 integer
         public Property(String n, String t, int l){
             name = n;
             type = t;
@@ -46,6 +47,7 @@ public class AST {
             System.out.println("111111" + flag);
         }
 
+        // Construct with 2 string as a parameter & 1 integer & Expression
         public Property(String n, String t, int l, Expression e){
             name = n;
             type = t;
@@ -60,6 +62,7 @@ public class AST {
             return space+ "#" + lineNo + " Property :" + name + " - Type:" + type + "\n";
         }
 
+        // Generate The Three address code if an expression is passed in construct
         @Override
         void generate(){
             if(flag){
@@ -89,13 +92,10 @@ public class AST {
         public Expression(){
             type = "no_type";
         }
+
         String getString(String space){
 
-            return space + "Expression: Type:" + type + "\n";
-        }
-
-        int eval(){
-            return -999999;
+            return space + "Expression Type:" + type + "\n";
         }
 
         String getV() {
@@ -115,6 +115,8 @@ public class AST {
         String before, after;
 
         public String v;
+
+        // While Loop Accepts 2 Expressions as Paramter
         public While(Expression e1, Expression e2){
             this.e1 = e1;
             this.e2 = e2;
@@ -124,9 +126,10 @@ public class AST {
         }
 
         String getString(String space){
-            return space + "Expression: Type:" + type + "\n";
+            return space + "Expression Type:" + type + "\n";
         }
 
+        // Generate The Three address code
         @Override
         void gererate(){
             prog3AdCode.add(before + ": ");
@@ -168,17 +171,18 @@ public class AST {
     static class IntConst extends Expression {
         int value;
         public String v;
+
+        // Accepts an integer value as a parameter
+
         public IntConst(int val){
             type = "IntConst";
             value = val;
             this.v = Integer.toString(value);
         }
+
         String getString(String space){
 
-            return space + "Expression: type:" + type + " value = " + value + "\n";
-        }
-        int eval(){
-            return value;
+            return space + "Expression Type:" + type + " value = " + value + "\n";
         }
 
         String getV(){
