@@ -232,15 +232,90 @@ public class AST {
     }
 
     static class Let extends Expression {
+        Expression expression;
+        ArrayList<Expression> exprs;
+        ArrayList<String> ids;
+        ArrayList<Boolean> flags;
+        String type;
+        public String v;
+
+        public Let(ArrayList<Boolean> flags, ArrayList<String> ids, ArrayList<Expression> exprs, Expression expression){
+            this.exprs = exprs;
+            this.flags = flags;
+            this.ids = ids;
+            this.expression = expression;
+            type = "LET";
+            v = "t" + tCounter++;
+        }
+
+        String getString(String space){
+            return space + "Expression: type:" + type + "\n";
+        }
+
+        void generate(){
+            int po = 0;
+            for (AST.Expression it : exprs){
+                if(flags.get(po)){
+                    it.generate();
+                    prog3AdCode.add(ids.get(po) + " = " + it.getV());
+                }
+                po++;
+            }
+            expression.generate();
+            prog3AdCode.add(v + " = " + expression.getV());
+        }
+
+        @Override
+        String getV(){
+            return v;
+        }
     }
 
     static class Case extends Expression {
     }
 
     static class NewType extends Expression {
+        public String type;
+
+        public NewType(String type){
+            this.type = type;
+        }
+
+        String getString(String space){
+            return space + "Expression: type: NEW " + type + "\n";
+        }
+
+        @Override
+        String getV(){
+            return "NULL";
+        }
     }
 
     static class IsVoid extends Expression {
+        Expression expression;
+        public String v;
+        public String type;
+
+        public IsVoid(Expression expression){
+            e = expression;
+            type = "IsVoid";
+            v = "t" + tCounter++;
+        }
+
+        String getString(String space){
+            return space + "Expression: type:" + type + "\n";
+        }
+
+        void generate(){
+            expression.generate();
+            String command = v + " = " + expressione.getV() + " == NULL";
+            prog3AdCode.add(command);
+        }
+
+        @Override
+        String getV(){
+            return v;
+        }
     }
 
     static class Arithmetic extends Expression {
@@ -253,6 +328,23 @@ public class AST {
     } //Not
 
     static class Id extends Expression {
+        public String v;
+        public String type;
+
+        public Id(String v){
+            type = "ObId";
+            this.v = v;
+
+        }
+        String getString(String space){
+
+            return space + "Expression: type:" + type + " value = " + v + "\n";
+        }
+
+        @Override
+        String getV(){
+            return v;
+        }
     }
 
     static class IntConst extends Expression {
@@ -282,7 +374,20 @@ public class AST {
     }
 
     static class Bool extends Expression {
-        public Bool(Boolean value) {
+        public String v;
+        public String type;
+        public Bool(String bool){
+            type = "BOOL_CONST";
+            v = bool;
+        }
+
+        String getString(String space){
+            return space + "Expression: type:" + type + " value = " + v + "\n";
+        }
+
+        @Override
+        String getV(){
+            return v;
         }
     }
 }
