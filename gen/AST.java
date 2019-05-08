@@ -14,9 +14,17 @@ public class AST {
     }
 
     static class Program extends ASTNode {
+        @Override
+        void generate() {
+
+        }
     }
 
     static class Block extends ASTNode {
+        @Override
+        void generate() {
+
+        }
     }
 
     static class Feature extends Block {
@@ -29,11 +37,19 @@ public class AST {
     }
 
     static class Formal extends ASTNode {
+        @Override
+        void generate() {
+
+        }
     }
 
 
     //    Productions of expr
     static class Expression extends ASTNode {
+        @Override
+        void generate() {
+
+        }
     }
 
     static class Assignment extends Expression {

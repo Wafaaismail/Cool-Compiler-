@@ -16,9 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         //boolean exists ;
-        String inputFilePath = "",
-                outputFilePath = "";
-
+        String inputFilePath = "", outputFilePath = "";
 
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter file path: ");
@@ -46,7 +44,7 @@ public class Main {
         outputFilePath = "output/"+outputFilePath;
 
         CharStream input = CharStreams.fromFileName(inputFilePath);
-        CoolLexer lexer = new CoolLexer(input);
+        Cool_lexer lexer = new Cool_lexer(input);
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         tokens.fill();
@@ -68,17 +66,14 @@ public class Main {
             System.out.println("The file passes lexer test.");
             writeLexerOutput(outputFilePath+".cl-lex",allTokens, allTokens.size());
             try{
-                CoolParser parser = new CoolParser(tokens);
+                Cool_parser parser = new Cool_parser(tokens);
                 ParseTree tree = parser.program();
-
-                CoolBaseVisitor baseVisitor = new CoolBaseVisitor();
-                baseVisitor.visit(tree);
 
                 TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
                 viewer.open();
                 System.out.println(tree.toStringTree(parser));
             }catch (ParseCancellationException e){
-                
+
             }
 
         }
