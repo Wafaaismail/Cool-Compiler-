@@ -5,6 +5,7 @@ public class AST {
     public static ArrayList<String> threeAddressCode = new ArrayList<>();
     public static int tCounter = 1; //counter for temp variables
     public static int lCounter = 1; // counter for labels
+    public static String sp = "  ";
 
     public static abstract class ASTNode {
         int lineNo;
@@ -13,26 +14,102 @@ public class AST {
 
     }
 
+    // Class Program
     static class Program extends ASTNode {
-        @Override
-        void generate() {
+        public ArrayList<AST.Block> blocks_;
 
+        public program(ArrayList<AST.Block> c, int l){
+            blocks_ = c;
+            lineNo = l;
+        }
+
+        String getString(String space){
+            String str;
+            str = space + "#" + lineNo + "\n" + space + "_program";
+            for (Block c : blocks_){
+                str += "\n" + c.getString(space + sp);
+            }
+            return str;
+        }
+
+        void generate() {
+            for(AST.Block : blocks_){
+                c.generate();
+            }
         }
     }
 
+    // Class Block
     static class Block extends ASTNode {
-        @Override
-        void generate() {
+        public String name;
+        public String parent;
+        public List<Feature> featureList;
 
+        public Block(String n, String p, List<Feature> fl, int l){
+            name = n;
+            parent = p;
+            featureList = fl;
+            lineNo = l;
+        }
+
+        String getString(String space){
+            String str;
+            str = space + "#" + lineNo + " class:" + name;
+            for (Feature f : featureList){
+                str += "\n" + f.getString(space + sp);
+            }
+            return str;
+        }
+
+        void generate() {
+            for (Feature f : featureList){
+                f.generate();
+            }
         }
     }
 
+    // Class Feature
     static class Feature extends Block {
+        String getString(String space) {
+            return space + "feature";
+        }
     }
 
+    // Class Method
     static class Method extends Feature {
+        String name;
+        String retType;
+        public List<Formal> formalList;
+        Expression expression;
+
+        public Method(String n, String rt, List<Formal> fl, Expression ee, int l){
+            name = n;
+            retType = rt;
+            formalList = fl;
+            expression = ee;
+            lineNo = l;
+        }
+
+        String getString(String space){
+            String str;
+            str = space + "#" + lineNo + " Method:" + name + " return type:" + retType + "\n";
+            if (formalList.size() > 0)
+                str += space + sp + "Formals:" + formalList.size() + "\n";
+            else
+                str += space + sp + "No formals" + "\n";
+            for (Formal f : formalList){
+                str += f.getString(space + sp) + "\n";
+            }
+            str += expression.getString(space + sp) + "\n";
+            return str;
+        }
+
+        void generate(){
+            expression.generate();
+        }
     }
 
+    // Class Property
     static class Property extends Feature {
         String name;
         String type;
@@ -76,13 +153,23 @@ public class AST {
         }
     }
 
+    // Class Formal
     static class Formal extends ASTNode {
-        @Override
+        String name;
+        String type;
+
+        public Formal(String n, String t){
+            name = n;
+            type = t;
+        }
+
+        String getString(String space){
+            return space + "Formal:" + name + " type:" + type + "\n";
+        }
         void generate() {
 
         }
     }
-
 
     //    Productions of expr
     static class Expression extends ASTNode {
@@ -189,6 +276,7 @@ public class AST {
             return v;
         }
     }
+
 
     static class Literal extends Expression {
     }
