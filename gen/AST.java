@@ -191,40 +191,52 @@ public class AST {
     }
 
     static class Assignment extends Expression {
-	public String name;
-        public expression e1;
-        public Assignment(String n, expression v1, int l){
-            name = n;
-            e1 = v1;
-            lineNo = l;
+	Expression e;
+        public String v;
+        public Assignment(String v,Expression e){
+            type = "ASSIGN_OPERATOR"
+            this.e = e;
+            this.v = v;
         }
-        String getString(String space){
-            return space+"#"+lineNo+"\n"+space+"_assign\n"+space+sp+name+"\n"+e1.getString(space+sp)+"\n"+space+": "+type;
+
+        String getString(String space) {
+            return space + "Expression Type :" +type + "Expression Value : " + v + "\n";
+        }
+
+        void generate(){
+            e.generate();
+            threeAddressCode.add(v + " = " +e.getV());
+        }
+
+        @java.lang.Override
+        public String getV() {
+            return v;
         }
     }
 
     public static class Parentheses extends Expression {
         Expression e;
-        public String v;
-
-        public Parentheses(Expression ee) {
-            e = ee;
+        String v;
+        public Parentheses (Expression e){
+            type = "Parentheses";
+            this.e = e;
             v = e.getV();
+
         }
 
+        @java.lang.Override
         String getString(String space) {
-
-            return space + "Expression: type: Parentheses" + "\n"
-                    + space + e.getString(space + sp) + "\n";
+            return space + "Expression Type :" +type + "Expression Value : " + v + "\n"
+                   +space +e.getString(space+sp) +"\n" ;
         }
 
-        void gen(){
-            e.gen();
-            //String command = "( " + e.getV() + " )";
-            //prog3AdCode.add(command);
+        @java.lang.Override
+        void generate() {
+            e.generate();
         }
-        @Override
-        String getV(){
+
+        @java.lang.Override
+        public String getV() {
             return v;
         }
     }
@@ -302,41 +314,38 @@ public class AST {
     }
 
     static class BlockOfExpressions extends Expression {
-	ArrayList<AST.Expression> exprs;
+	ArrayList <AST.Expression> blockOfexprs;
         String v;
-
-        public BlockOfExpr(ArrayList<Expression> exprs){
-            type = "BlockOfExpr";
-            this.exprs = exprs;
+        public BlockOfExpressions ( ArrayList <AST.Expression> blockOfexprs){
+            this.blockOfexprs = blockOfexprs;
+            type = "block";
             v = "t" + tCounter++;
+
         }
 
-        String getString(String space){
-
-            String str = space + "Expression: type:" + type + "\n";
-
-            for(Expression e: exprs){
-                str += e.getString(space+sp);
+         @java.lang.Override
+         String getString(String space) {
+            String str = return space + "Expression: type:" + type + "\n" ;
+            for (Expression e : blockOfexprs){
+                str+= e.getString(space+sp)
             }
+                return str;
+         }
 
-            return str;
-        }
+         @java.lang.Override
+         void generate() {
+             Expression list = new Expression();
+             for (Expression e :list){
+                 e.generate();
+                 list = e;
+                 threeAddressCode.add(v + " = "+ list.getV())
+             }
+         }
 
-        void gen(){
-            Expression last = new Expression();
-
-            for(Expression e: exprs){
-                e.gen();
-                last = e;
-            }
-
-            prog3AdCode.add(v + " = " + last.getV());
-        }
-
-        @Override
-        String getV(){
-            return v;
-        }
+         @java.lang.Override
+         public String getV() {
+             return v;
+         }
     }
 
     static class Let extends Expression {
@@ -460,74 +469,82 @@ public class AST {
 	Expression e1;
         Expression e2;
         String op;
-        int res;
+        int result;
         public String v;
 
-        public Arithmetic(Expression ee1, Expression ee2, String opp) {
-
-            e1 = ee1;
-            e2 = ee2;
-            op = opp;
-            res = this.eval();
+        public Arithmetic(Expression e1, Expression e2, String op) {
+            this.e1 = e1;
+            this.e2 = e2;
+            result = this.calc();
             v = "t" + tCounter++;
-            System.out.println(">>> " +v);
+            System.out.println("-> " + v);
 
             switch (op) {
                 case "+":
-                    type = "Add";
+                    type = "PLUS";
                     break;
                 case "-":
-                    type = "Sub";
+                    type = "MINUS";
                     break;
                 case "*":
-                    type = "Mul";
+                    type = "MULTIPLY";
                     break;
                 case "/":
-                    type = "Div";
+                    type = "DIVIDE";
+                case "~":
+                    type = "INTEGER_NEGATIVE";
                     break;
                 default:
-                    type = "un identified";
-                    break;
-
+                    type = "undefined type";
             }
         }
 
+        @java.lang.Override
         String getString(String space) {
-
-            return space + "Expression: type:" + type + "\n"
-                    + space + e1.getString(space + sp) + "\n"
+            return space + "Expression Type :" + type + "\n" +
+                    +space + e1.getString(space + sp) + "\n"
                     + space + e2.getString(space + sp) + "\n"
-                    + space + "result = " + res + "\n";
+                    + space + "result = " + result + "\n";
         }
 
-        int eval() {
+
+        @java.lang.Override
+        int calc() {
             switch (op) {
                 case "+":
-                    return e1.eval() + e2.eval();
+                    return e1.calc() + e2.calc();
+                break;
                 case "-":
-                    return e1.eval() - e2.eval();
+                    return e1.calc() - e2.calc();
+                break;
                 case "*":
-                    return e1.eval() * e2.eval();
+                    return e1.calc() * e2.calc();
+                break;
                 case "/":
-                    return e1.eval() / e2.eval();
+                    return e1.calc() / e2.calc();
+                    break;
+                case "~":
+                    return  -e1.calc() ;
+                break;
+                break;
                 default:
-                    return -999999;
+                    return -9999;
             }
         }
 
-        void gen(){
-            e1.gen();
-            e2.gen();
-            String command = v + " = " + e1.getV() + " " + op + " " + e2.getV();
+            @java.lang.Override
+            void generate () {
+                e1.calc();
+                e2.calc();
+                threeAddressCode.add(
+                        v + " = " + e1.getV() + op + e2.getV()
+                );
+            }
 
-            prog3AdCode.add(command);
-
-
-        }
-        @Override
-        String getV(){
-            return v;
-        }
+            @java.lang.Override
+            public String getV () {
+                return v;
+            }
     }
 
     static class Relational extends Expression {
