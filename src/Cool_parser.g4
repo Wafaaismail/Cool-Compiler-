@@ -49,7 +49,7 @@ featureList returns [List<AST.Feature> obj]
     {
         $obj = new ArrayList<AST.Feature>();
     }
-    : (f=feature SEMICOLON {$obj.add($f.obj);})*
+    : (f=feature SEMICOLUN {$obj.add($f.obj);})*
     ;
 
 feature returns [AST.Feature obj]
@@ -74,15 +74,15 @@ method returns [AST.Method obj]
     /*x(a, b ..): Int {..}*/
     | id=ID OPENP_PRANSIS fl=formalList CLOSE_PRANSIS COLUN type=TYPE OPEN_CURLY e=expr CLOSE_CURLY
     {
-        $value = new AST.Method($id.getText(), $type.getText(), $fl.obj, $e.obj, $id.getLine());
+        $obj = new AST.Method($id.getText(), $type.getText(), $fl.obj, $e.obj, $id.getLine());
     }
     ;
 
 property returns [AST.Property obj]
     // x:Int
     // x:Int <- expr
-    : {Bool flag = false;}
-    id=ID COLUN type=Type (ASSIGN_OPERATOR e=expr{flag=true;})?
+    : {Boolean flag = false;}
+    id=ID COLUN type=TYPE (ASSIGN_OPERATOR e=expr{flag=true;})?
     {
       if(flag)
         $obj = new AST.Property($id.getText(), $type.getText(), $id.getLine(), $e.obj);
@@ -121,7 +121,7 @@ branch_list returns [List<AST.branch> obj]
 	;
 
 branch_entity returns [AST.branch obj] :
-	id=ID COLON type=TYPE DARROW e=expr SEMICOLON
+	id=ID COLUN type=TYPE DARROW e=expr SEMICOLUN
 		{
 			$obj = new AST.branch($id.getText(), $type.getText(),$e.obj, $id.getLine());
 		}
@@ -153,7 +153,7 @@ expr returns [AST.Expression obj]:
      */
     | expr1=expr DOT id=ID OPENP_PRANSIS e=e_list CLOSE_PRANSIS
     {
-        $obj= new AST.dispatch($expr1.obj, $id.getText(), $e.obj, $object_key.getLine());
+        $obj= new AST.dispatch($expr1.obj, $id.getText(), $e.obj, $id.getLine());
     }
     # dispatch
     |
@@ -186,7 +186,7 @@ expr returns [AST.Expression obj]:
 
     | OPEN_CURLY
     { ArrayList<AST.Expression> list = new ArrayList<AST.Expression>(); }
-    (e=expr SEMICOLUN {list.add($exp.obj);}) + CLOSE_CURLY
+    (exp=expr SEMICOLUN {list.add($exp.obj);}) + CLOSE_CURLY
     {
         $obj = new AST.BlockOfExpressions(list);
     }
@@ -200,8 +200,8 @@ expr returns [AST.Expression obj]:
         Boolean flag;
         AST.Expression expr;
     }
-    LET id=ID {flag = false; expr = new AST.Expression(); ids.add($i1.getText()));} COLUN type=TYPE
-    (ASSIGN_OPERATOR expr1=expr {flag = true; expr = $e1.obj;})? {flags.add(flag); exprs.add(expr);}
+    LET id=ID {flag = false; expr = new AST.Expression(); ids.add($id.getText()));} COLUN type=TYPE
+    (ASSIGN_OPERATOR expr1=expr {flag = true; $expr = $expr1.obj;})? {flags.add(flag); exprs.add(expr);}
     (COMMA id2=ID {flag = false; expr = new AST.Expression(); ids.add($i.getText());} COLUN type2= TYPE
     (ASSIGN_OPERATOR expr2=expr {flag = true; expr = $e.obj;})? {flags.add(flag); exprs.add(expr);})* IN expr3=expr
     {
