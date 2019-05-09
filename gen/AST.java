@@ -180,6 +180,10 @@ public class AST {
             type = "no_type";
         }
 
+        int calc(){
+            return  -99999
+        }
+
         String getString(String space){
 
             return space + "Expression Type:" + type + "\n";
@@ -191,6 +195,27 @@ public class AST {
     }
 
     static class Assignment extends Expression {
+        Expression e;
+        public String v;
+        public Assignment(String v,Expression e){
+            type = "ASSIGN_OPERATOR"
+            this.e = e;
+            this.v = v;
+        }
+
+        String getString(String space) {
+            return space + "Expression Type :" +type + "Expression Value : " + v + "\n";
+        }
+
+        void generate(){
+            e.generate();
+            threeAddressCode.add(v + " = " +e.getV());
+        }
+
+        @java.lang.Override
+        public String getV() {
+            return v;
+        }
     }
 
     static class If extends Expression {
@@ -228,7 +253,15 @@ public class AST {
         }
     }
 
+     //TODO  complete class after check grammer return value
     static class BlockOfExpressions extends Expression {
+        ArrayList <AST.Expression> blockOfexprs;
+        String v;
+        public BlockOfExpressions ( ArrayList <AST.Expression> blockOfexprs){
+            this.blockOfexprs = blockOfexprs;
+            //type = "";
+
+        }
     }
 
     static class Let extends Expression {
@@ -318,8 +351,109 @@ public class AST {
         }
     }
 
-    static class Arithmetic extends Expression {
+
+    static class Parentheses extends Expression{
+        Expression e;
+        String v;
+        public Parentheses (Expression e){
+            type = "Parentheses";
+            this.e = e;
+            v = e.getV();
+
+        }
+
+        @java.lang.Override
+        String getString(String space) {
+            return space + "Expression Type :" +type + "Expression Value : " + v + "\n"
+                   +space +e.getString(space+sp) +"\n" ;
+        }
+
+        @java.lang.Override
+        void generate() {
+            e.generate();
+        }
+
+        @java.lang.Override
+        public String getV() {
+            return v;
+        }
+
     }
+    static class Arithmetic extends Expression {
+        Expression e1;
+        Expression e2;
+        String op;
+        int result;
+        public String v;
+
+        public Arithmetic(Expression e1, Expression e2, String op) {
+            this.e1 = e1;
+            this.e2 = e2;
+            result = this.calc();
+            v = "t" + tCounter++;
+            System.out.println("-> " + v);
+
+            switch (op) {
+                case "+":
+                    type = "PLUS";
+                    break;
+                case "-":
+                    type = "MINUS";
+                    break;
+                case "*":
+                    type = "MULTIPLY";
+                    break;
+                case "/":
+                    type = "DIVIDE";
+                    break;
+                default:
+                    type = "undefined type";
+            }
+        }
+
+        @java.lang.Override
+        String getString(String space) {
+            return space + "Expression Type :" + type + "\n" +
+                    +space + e1.getString(space + sp) + "\n"
+                    + space + e2.getString(space + sp) + "\n"
+                    + space + "result = " + result + "\n";
+        }
+
+
+        @java.lang.Override
+        int calc() {
+            switch (op) {
+                case "+":
+                    return e1.calc() + e2.calc();
+                break;
+                case "-":
+                    return e1.calc() - e2.calc();
+                break;
+                case "*":
+                    return e1.calc() * e2.calc();
+                break;
+                case "/":
+                    return e1.calc() / e2.calc();
+                break;
+                default:
+                    return -9999;
+            }
+        }
+
+            @java.lang.Override
+            void generate () {
+                e1.calc();
+                e2.calc();
+                threeAddressCode.add(
+                        v + " = " + e1.getV() + op + e2.getV()
+                );
+            }
+
+            @java.lang.Override
+            public String getV () {
+                return v;
+            }
+        }
 
     static class Relational extends Expression {
     }
