@@ -272,6 +272,21 @@ public class AST {
     }
 
     static class Case extends Expression {
+        public expression predicate;
+        public List<branch> branches;
+        public typcase(expression p, List<branch> b, int l){
+            predicate = p;
+            branches = b;
+            lineNo = l;
+        }
+        String getString(String space){
+            String str = space+"#"+lineNo+"\n"+space+"_typcase\n"+predicate.getString(space+sp)+"\n";
+            for ( branch b1 : branches ) {
+                str += b1.getString(space+sp)+"\n";
+            }
+            str += space+": "+type;
+            return str;
+        }
     }
 
     static class NewType extends Expression {
