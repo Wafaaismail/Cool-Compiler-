@@ -203,7 +203,70 @@ public class AST {
         }
     }
 
+    public static class Parentheses extends Expression {
+        Expression e;
+        public String v;
+
+        public Parentheses(Expression ee) {
+            e = ee;
+            v = e.getV();
+        }
+
+        String getString(String space) {
+
+            return space + "Expression: type: Parentheses" + "\n"
+                    + space + e.getString(space + sp) + "\n";
+        }
+
+        void gen(){
+            e.gen();
+            //String command = "( " + e.getV() + " )";
+            //prog3AdCode.add(command);
+        }
+        @Override
+        String getV(){
+            return v;
+        }
+    }
+
+
     static class If extends Expression {
+        Expression e1;
+        Expression e2;
+        Expression e3;
+        String before_else, after_else;
+
+        public String v;
+        public If(Expression e1, Expression e2, Expression e3){
+            this.e1 = e1;
+            this.e2 = e2;
+            this.e3 = e3;
+            type = "If";
+            before_else = "BEFORE" + lCounter;
+            after_else = "AFTER" + lCounter++;
+        }
+
+        String getString(String space){
+
+            return space + "Expression: type:" + type + "\n";
+        }
+
+
+        void gen(){
+            e1.gen();
+            prog3AdCode.add("ifFalse " + e1.getV() + " goto " + before_else);
+            e2.gen();
+            prog3AdCode.add("goto " + after_else);
+            prog3AdCode.add(before_else + ": ");
+            e3.gen();
+            prog3AdCode.add(after_else + ": ");
+            //prog3AdCode.add( Integer.toString(value));
+        }
+
+        @Override
+        String getV(){
+            return v;
+        }
     }
 
     static class While extends Expression {
