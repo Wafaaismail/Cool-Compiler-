@@ -430,4 +430,48 @@ public class AST {
             return v;
         }
     }
+    // Class dispatch for calling methods
+    public static class dispatch extends expression{
+		public expression caller;
+		public String name;
+		public List<expression> actuals;
+		public dispatch(expression v1, String n, List<expression> a, int l){
+			caller = v1;
+			name = n;
+			actuals = a;
+			lineNo = l;
+		} 
+		String getString(String space){
+			String str;
+			str = space+"#"+lineNo+"\n"+space+"_dispatch\n"+caller.getString(space+sp)+"\n"+space+sp+name+"\n"+space+sp+"(\n";
+			for ( expression e1 : actuals ) {
+				str += e1.getString(space+sp)+"\n";	
+			}
+			str+=space+sp+")\n"+space+": "+type;
+			return str;
+		}
+	}
+	
+	public static class static_dispatch extends expression{
+                public expression caller;
+		public String typeid;
+                public String name;
+                public List<expression> actuals;
+                public static_dispatch(expression v1, String t, String n, List<expression> a, int l){
+                        caller = v1;
+			typeid = t;
+                        name = n;
+                        actuals = a;
+                        lineNo = l;
+                }
+                String getString(String space){
+                        String str;
+                        str = space+"#"+lineNo+"\n"+space+"_static_dispatch\n"+caller.getString(space+sp)+"\n"+space+sp+typeid+"\n"+space+sp+name+"\n"+space+sp+"(\n";
+                        for ( expression e1 : actuals ) {
+                                str += e1.getString(space+sp)+"\n";     
+                        }
+                        str+=space+sp+")\n"+space+": "+type;
+                        return str;
+                }
+        }
 }
