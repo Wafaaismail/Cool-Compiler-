@@ -470,7 +470,33 @@ public class AST {
     static class Relational extends Expression {
     }
 
-    static class Logic extends Expression {
+    static class LogOP extends Expression {
+        Expression e;
+        String op;
+        public String v;
+
+        public LogOp(Expression ee, String opp) {
+            e = ee;
+            op = opp;
+            if(op.equals("NOT"))    op = "!";
+            v = "t" + tCounter++;
+        }
+
+        String getString(String space) {
+
+            return space + "Expression: type: "+ op + "\n"
+                    + space + e.getString(space + sp) + "\n";
+        }
+
+        void gen(){
+            e.gen();
+            String command = v + " = " + op + " " + e.getV();
+            prog3AdCode.add(command);
+        }
+        @Override
+        String getV(){
+            return v;
+        }
     } //Not
 
     static class Id extends Expression {
