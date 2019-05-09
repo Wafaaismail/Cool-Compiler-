@@ -155,12 +155,12 @@ expr returns [AST.Expression obj]:
     {
         $obj= new AST.dispatch($expr1.obj, $id.getText(), $e.obj, $id.getLine());
     }
-    # dispatch
-    |
-      id=ID OPENP_PRANSIS e=e_list CLOSE_PRANSIS
-    {
-        $obj = new AST.dispatch(new AST.no_expr($id.getLine()), $id.getText(), $e.obj, $id.getLine());
-    }
+//    # dispatch
+//    |
+//      id=ID OPENP_PRANSIS e=e_list CLOSE_PRANSIS
+//    {
+//        $obj = new AST.dispatch(new AST.no_expr($id.getLine()), $id.getText(), $e.obj, $id.getLine());
+//    }
     # own_dispatch_call
     /* STATIC DISPATCH EXPRESSION
      * expr -> expr@TYPE.OBJECT([[expr[,expr]*]])
@@ -211,7 +211,7 @@ expr returns [AST.Expression obj]:
     //| CASE expr1=expr OF (id= ID COLUN type=TYPE CASE_ARROW expr2=expr SEMICOLUN)+ESAC
     | CASE expr1=expr OF bl=branch_list ESAC
     {
-        $obj = new ArrayList<AST.Case>($expr1.obj, $bl.obj, $expr1.obj.lineNo);
+        $obj = new AST.Case($expr1.obj, $bl.obj, $expr1.obj.lineNo);
     }
     # case
 
