@@ -211,7 +211,7 @@ expr returns [AST.Expression obj]:
     //| CASE expr1=expr OF (id= ID COLUN type=TYPE CASE_ARROW expr2=expr SEMICOLUN)+ESAC
     | CASE expr1=expr OF bl=branch_list ESAC
     {
-        $obj = new ArrayList<AST.branch>($expr1.obj, $bl.obj, $expr1.obj.lineNo);
+        $obj = new ArrayList<AST.Case>($expr1.obj, $bl.obj, $expr1.obj.lineNo);
     }
     # case
 

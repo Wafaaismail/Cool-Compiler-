@@ -173,7 +173,14 @@ public class AST {
 
         }
     }
-
+    public static class no_expr extends Expression {
+        public no_expr(int l){
+            lineNo = l;
+        }
+        String getString(String space){
+            return space+"#"+lineNo+"\n"+space+"_no_expr\n"+space+": "+type;
+        }
+    }
     //    Productions of expr
     static class Expression extends ASTNode {
 
@@ -402,8 +409,8 @@ public class AST {
 
     static class Case extends Expression {
         public Expression predicate;
-        public List<branch> branches;
-        public Case(Expression p, List<branch> b, int l){
+        public ArrayList<branch> branches;
+        public Case(Expression p, ArrayList<branch> b, int l){
             predicate = p;
             branches = b;
             lineNo = l;
