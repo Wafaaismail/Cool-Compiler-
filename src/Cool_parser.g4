@@ -199,7 +199,7 @@ expr returns [AST.Expression obj]:
         Boolean flag;
 
     }
-    LET id=ID {flag = false; ids.add($id.getText()));} COLUN type=TYPE
+    LET id=ID {flag = false; ids.add($id.getText());} COLUN type=TYPE
     (ASSIGN_OPERATOR expr1=expr {flag = true; })? {flags.add(flag); exprs.add($expr1.obj);}
     (COMMA id2=ID {flag = false;  ids.add($id2.getText());} COLUN type2= TYPE
     (ASSIGN_OPERATOR expr2=expr {flag = true;})? {flags.add(flag); exprs.add($expr2.obj);})* IN expr3=expr
