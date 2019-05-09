@@ -191,19 +191,18 @@ expr returns [AST.Expression obj]:
         $obj = new AST.BlockOfExpressions(list);
     }
     # block //block of expressions
-
     |
     {
         ArrayList<AST.Expression> exprs = new ArrayList<>();
         ArrayList<String> ids = new ArrayList<>();
         ArrayList<Boolean> flags = new ArrayList<>();
         Boolean flag;
-        AST.Expression expr;
+
     }
-    LET id=ID {flag = false; expr = new AST.Expression(); ids.add($id.getText()));} COLUN type=TYPE
-    (ASSIGN_OPERATOR expr1=expr {flag = true; $expr = $expr1.obj;})? {flags.add(flag); exprs.add(expr);}
-    (COMMA id2=ID {flag = false; expr = new AST.Expression(); ids.add($i.getText());} COLUN type2= TYPE
-    (ASSIGN_OPERATOR expr2=expr {flag = true; expr = $e.obj;})? {flags.add(flag); exprs.add(expr);})* IN expr3=expr
+    LET id=ID {flag = false; ids.add($id.getText()));} COLUN type=TYPE
+    (ASSIGN_OPERATOR expr1=expr {flag = true; })? {flags.add(flag); exprs.add($expr1.obj);}
+    (COMMA id2=ID {flag = false;  ids.add($id2.getText());} COLUN type2= TYPE
+    (ASSIGN_OPERATOR expr2=expr {flag = true;})? {flags.add(flag); exprs.add($expr2.obj);})* IN expr3=expr
     {
         $obj = new AST.Let(flags, ids, exprs, $expr3.obj);
     }
