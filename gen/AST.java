@@ -651,6 +651,23 @@ public class AST {
 
 
     static class Literal extends Expression {
+	public String v;
+        public Literal(String st){
+            type = "String";
+            v = st;
+        }
+
+        String getString(String space){
+            return space + "Expression: type:" + type + " value = " + v + "\n";
+        }
+
+        void gen(){
+        }
+
+        @Override
+        String getV(){
+            return v;
+        }
     }
 
     static class Bool extends Expression {
