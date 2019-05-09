@@ -394,6 +394,77 @@ public class AST {
     }
 
     static class Arithmetic extends Expression {
+	Expression e1;
+        Expression e2;
+        String op;
+        int res;
+        public String v;
+
+        public Arithmetic(Expression ee1, Expression ee2, String opp) {
+
+            e1 = ee1;
+            e2 = ee2;
+            op = opp;
+            res = this.eval();
+            v = "t" + tCounter++;
+            System.out.println(">>> " +v);
+
+            switch (op) {
+                case "+":
+                    type = "Add";
+                    break;
+                case "-":
+                    type = "Sub";
+                    break;
+                case "*":
+                    type = "Mul";
+                    break;
+                case "/":
+                    type = "Div";
+                    break;
+                default:
+                    type = "un identified";
+                    break;
+
+            }
+        }
+
+        String getString(String space) {
+
+            return space + "Expression: type:" + type + "\n"
+                    + space + e1.getString(space + sp) + "\n"
+                    + space + e2.getString(space + sp) + "\n"
+                    + space + "result = " + res + "\n";
+        }
+
+        int eval() {
+            switch (op) {
+                case "+":
+                    return e1.eval() + e2.eval();
+                case "-":
+                    return e1.eval() - e2.eval();
+                case "*":
+                    return e1.eval() * e2.eval();
+                case "/":
+                    return e1.eval() / e2.eval();
+                default:
+                    return -999999;
+            }
+        }
+
+        void gen(){
+            e1.gen();
+            e2.gen();
+            String command = v + " = " + e1.getV() + " " + op + " " + e2.getV();
+
+            prog3AdCode.add(command);
+
+
+        }
+        @Override
+        String getV(){
+            return v;
+        }
     }
 
     static class Relational extends Expression {
