@@ -21,23 +21,6 @@ public class Main {
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter file path: ");
         inputFilePath = reader.nextLine();
-        /*
-        for(String str : args) {
-
-            File tempFile = new File(args[0]);
-            exists = tempFile.exists();
-
-            if(exists)
-            {
-                inputFilePath = "testCases/"+args[0];
-                break;
-            }else{
-                System.out.println("The File Is Not Exist");
-                return;
-            }
-
-        }
-        */
 
         outputFilePath = inputFilePath.substring(inputFilePath.indexOf("/") + 1);
         outputFilePath = outputFilePath.substring(0, outputFilePath.indexOf("."));
@@ -65,10 +48,16 @@ public class Main {
         if(!err){
             System.out.println("The file passes lexer test.");
             writeLexerOutput(outputFilePath+".cl-lex",allTokens, allTokens.size());
-            try{
+            try {
                 Cool_parser parser = new Cool_parser(tokens);
                 ParseTree tree = parser.program();
+                Cool_parser.ProgramContext prog = parser.program();
+                System.out.println(prog.obj.getString(""));
+                prog.obj.generate();
 
+                for(String s: AST.threeAddressCode){
+                    System.out.println(s);
+                }
                 TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
                 viewer.open();
                 System.out.println(tree.toStringTree(parser));

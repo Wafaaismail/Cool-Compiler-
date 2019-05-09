@@ -409,8 +409,8 @@ public class AST {
 
     static class Case extends Expression {
         public Expression predicate;
-        public ArrayList<branch> branches;
-        public Case(Expression p, ArrayList<branch> b, int l){
+        public List<branch> branches;
+        public Case(Expression p, List<branch> b, int l){
             predicate = p;
             branches = b;
             lineNo = l;
