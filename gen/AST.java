@@ -483,7 +483,7 @@ public class AST {
     }
 
     static class Arithmetic extends Expression {
-	Expression e1;
+        Expression e1;
         Expression e2;
         String op;
         int result;

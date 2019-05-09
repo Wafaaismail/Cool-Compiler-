@@ -143,7 +143,7 @@ e_list returns [List<AST.Expression> obj]
 expr returns [AST.Expression obj]:
     id=ID op=ASSIGN_OPERATOR expr1=expr
     {
-        $obj = new AST.Assignment($id.getText(), $expr1.obj, $id.getLine());
+        $obj = new AST.Assignment($id.getText(), $expr1.obj);
     }
     # assignment
 
@@ -229,31 +229,46 @@ expr returns [AST.Expression obj]:
 
     | expr1=expr op=PLUS expr2=expr
     {
-        $obj= new AST.Arithmetic($expr1.obj, $expr2.obj, $op.getText());
+           $obj= new AST.Arithmetic(
+                        $expr1.obj,
+                        $expr2.obj,
+                        $op.getText());
     }
     # plus
 
     | expr1=expr op=MINUS expr2=expr
     {
-        $obj= new AST.Arithmetic($expr1.obj, $expr2.obj, $op.getText());
+         $obj= new AST.Arithmetic(
+                 $expr1.obj,
+                 $expr2.obj,
+                $op.getText());
     }
     # minus
 
     | expr1=expr op=MULTIPLY expr2=expr
     {
-        $obj= new AST.Arithmetic($expr1.obj, $expr2.obj, $op.getText());
+           $obj= new AST.Arithmetic(
+                        $expr1.obj,
+                        $expr2.obj,
+                        $op.getText());
     }
     # multiplication
 
     | expr1=expr op=DIVIDE expr2=expr
     {
-        $obj= new AST.Arithmetic($expr1.obj, $expr2.obj, $op.getText());
+           $obj= new AST.Arithmetic(
+                        $expr1.obj,
+                        $expr2.obj,
+                        $op.getText());
     }
     # division
 
     | op=INTEGER_NEGATIVE expr2=expr
     {
-        $obj= new AST.LogOp($expr2.obj, $op.getText());
+           $obj= new AST.Arithmetic(
+                        $expr1.obj,
+                        $expr2.obj,
+                        $op.getText());
     }
     # negative
 
