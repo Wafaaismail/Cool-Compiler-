@@ -18,7 +18,7 @@ public class AST {
     static class Program extends ASTNode {
         public ArrayList<AST.Block> blocks_;
 
-        public program(ArrayList<AST.Block> c, int l){
+        public Program(ArrayList<AST.Block> c, int l){
             blocks_ = c;
             lineNo = l;
         }
@@ -33,7 +33,7 @@ public class AST {
         }
 
         void generate() {
-            for(AST.Block : blocks_){
+            for(AST.Block c : blocks_){
                 c.generate();
             }
         }
@@ -45,6 +45,9 @@ public class AST {
         public String parent;
         public List<Feature> featureList;
 
+        public Block(){
+
+        }
         public Block(String n, String p, List<Feature> fl, int l){
             name = n;
             parent = p;
@@ -144,7 +147,7 @@ public class AST {
         void generate(){
             if(flag){
                 e.generate();
-                prog3AdCode.add(name + " = " + e.getV());
+                threeAddressCode.add(name + " = " + e.getV());
             }
         }
 
@@ -188,13 +191,22 @@ public class AST {
         String getV() {
             return v;
         }
+
+        int calc(){
+            return  -99999;
+        }
+
+        @Override
+        void generate() {
+
+        }
     }
 
     static class Assignment extends Expression {
 	Expression e;
         public String v;
         public Assignment(String v,Expression e){
-            type = "ASSIGN_OPERATOR"
+            type = "ASSIGN_OPERATOR";
             this.e = e;
             this.v = v;
         }
@@ -265,14 +277,14 @@ public class AST {
 
 
         void gen(){
-            e1.gen();
-            prog3AdCode.add("ifFalse " + e1.getV() + " goto " + before_else);
-            e2.gen();
-            prog3AdCode.add("goto " + after_else);
-            prog3AdCode.add(before_else + ": ");
-            e3.gen();
-            prog3AdCode.add(after_else + ": ");
-            //prog3AdCode.add( Integer.toString(value));
+            e1.generate();
+            threeAddressCode.add("ifFalse " + e1.getV() + " goto " + before_else);
+            e2.generate();
+            threeAddressCode.add("goto " + after_else);
+            threeAddressCode.add(before_else + ": ");
+            e3.generate();
+            threeAddressCode.add(after_else + ": ");
+            //threeAddressCode.add( Integer.toString(value));
         }
 
         @Override
@@ -303,13 +315,13 @@ public class AST {
 
         // Generate The Three address code
         @Override
-        void gererate(){
-            prog3AdCode.add(before + ": ");
-            e1.gererate();
-            prog3AdCode.add("ifFalse " + e1.getV() + " goto " + after);
-            e2.gererate();
-            prog3AdCode.add("goto " + before);
-            prog3AdCode.add(after + ": ");
+        void generate(){
+            threeAddressCode.add(before + ": ");
+            e1.generate();
+            threeAddressCode.add("ifFalse " + e1.getV() + " goto " + after);
+            e2.generate();
+            threeAddressCode.add("goto " + before);
+            threeAddressCode.add(after + ": ");
         }
     }
 
@@ -325,9 +337,9 @@ public class AST {
 
          @java.lang.Override
          String getString(String space) {
-            String str = return space + "Expression: type:" + type + "\n" ;
+            String str = space + "Expression: type:" + type + "\n" ;
             for (Expression e : blockOfexprs){
-                str+= e.getString(space+sp)
+                str+= e.getString(space+sp);
             }
                 return str;
          }
@@ -335,10 +347,10 @@ public class AST {
          @java.lang.Override
          void generate() {
              Expression list = new Expression();
-             for (Expression e :list){
+             for (Expression e : blockOfexprs){
                  e.generate();
                  list = e;
-                 threeAddressCode.add(v + " = "+ list.getV())
+                 threeAddressCode.add(v + " = "+ list.getV());
              }
          }
 
@@ -374,12 +386,12 @@ public class AST {
             for (AST.Expression it : exprs){
                 if(flags.get(po)){
                     it.generate();
-                    prog3AdCode.add(ids.get(po) + " = " + it.getV());
+                    threeAddressCode.add(ids.get(po) + " = " + it.getV());
                 }
                 po++;
             }
             expression.generate();
-            prog3AdCode.add(v + " = " + expression.getV());
+            threeAddressCode.add(v + " = " + expression.getV());
         }
 
         @Override
@@ -389,9 +401,9 @@ public class AST {
     }
 
     static class Case extends Expression {
-        public expression predicate;
+        public Expression predicate;
         public List<branch> branches;
-        public Case(expression p, List<branch> b, int l){
+        public Case(Expression p, List<branch> b, int l){
             predicate = p;
             branches = b;
             lineNo = l;
@@ -409,8 +421,8 @@ public class AST {
     public static class branch extends ASTNode {
 		public String name;
 		public String type;
-		public expression value;
-		public branch(String n, String t, expression v, int l){
+		public Expression value;
+		public branch(String n, String t, Expression v, int l){
 			name = n;
 			type = t;
 			value = v;
@@ -419,7 +431,12 @@ public class AST {
 		String getString(String space){
 			return space+"#"+lineNo+"\n"+space+"_branch\n"+space+sp+name+"\n"+space+sp+type+"\n"+value.getString(space+sp);
 		}
-	}
+
+        @Override
+        void generate() {
+
+        }
+    }
     
     static class NewType extends Expression {
         public String type;
@@ -444,9 +461,9 @@ public class AST {
         public String type;
 
         public IsVoid(Expression expression){
-            e = expression;
-            type = "IsVoid";
-            v = "t" + tCounter++;
+            this.expression = expression;
+            this.type = "IsVoid";
+            this.v = "t" + tCounter++;
         }
 
         String getString(String space){
@@ -455,8 +472,8 @@ public class AST {
 
         void generate(){
             expression.generate();
-            String command = v + " = " + expressione.getV() + " == NULL";
-            prog3AdCode.add(command);
+            String command = v + " = " + expression.getV() + " == NULL";
+            threeAddressCode.add(command);
         }
 
         @Override
@@ -501,10 +518,12 @@ public class AST {
 
         @java.lang.Override
         String getString(String space) {
-            return space + "Expression Type :" + type + "\n" +
-                    +space + e1.getString(space + sp) + "\n"
-                    + space + e2.getString(space + sp) + "\n"
-                    + space + "result = " + result + "\n";
+            space += "Expression Type :" + type + "\n" +
+                    space + e1.getString(space + sp) + "\n" +
+                    space + e2.getString(space + sp) + "\n" +
+                    space + "result = " + result + "\n"
+            ;
+            return space ;
         }
 
 
@@ -513,20 +532,19 @@ public class AST {
             switch (op) {
                 case "+":
                     return e1.calc() + e2.calc();
-                break;
+
                 case "-":
                     return e1.calc() - e2.calc();
-                break;
+
                 case "*":
                     return e1.calc() * e2.calc();
-                break;
+
                 case "/":
                     return e1.calc() / e2.calc();
-                    break;
+
                 case "~":
                     return  -e1.calc() ;
-                break;
-                break;
+
                 default:
                     return -9999;
             }
@@ -548,7 +566,7 @@ public class AST {
     }
 
     static class Relational extends Expression {
-	Expression e1;
+	    Expression e1;
         Expression e2;
         String op;
         public String v;
@@ -574,20 +592,20 @@ public class AST {
                     break;
             }
         }
-
+        @Override
         String getString(String space) {
 
             return space + "Expression: type:" + type + "\n"
                     + space + e1.getString(space + sp) + "\n"
                     + space + e2.getString(space + sp)+ "\n";
         }
-
-        void gen(){
-            e1.gen();
-            e2.gen();
+        @Override
+        void generate(){
+            e1.generate();
+            e2.generate();
             String command = v + " = " + e1.getV() + " " + op + (op.equals("=") ? op : "") + " " + e2.getV();
 
-            prog3AdCode.add(command);
+            threeAddressCode.add(command);
         }
         @Override
         String getV(){
@@ -595,7 +613,7 @@ public class AST {
         }
     }
 
-    static class LogOP extends Expression {
+    static class LogOp extends Expression {
         Expression e;
         String op;
         public String v;
@@ -612,11 +630,11 @@ public class AST {
             return space + "Expression: type: "+ op + "\n"
                     + space + e.getString(space + sp) + "\n";
         }
-
-        void gen(){
-            e.gen();
+        @Override
+        void generate(){
+            e.generate();
             String command = v + " = " + op + " " + e.getV();
-            prog3AdCode.add(command);
+            threeAddressCode.add(command);
         }
         @Override
         String getV(){
@@ -705,11 +723,11 @@ public class AST {
         }
     }
     // Class dispatch for calling methods
-    public static class dispatch extends expression{
-		public expression caller;
+    public static class dispatch extends Expression{
+		public Expression caller;
 		public String name;
-		public List<expression> actuals;
-		public dispatch(expression v1, String n, List<expression> a, int l){
+		public List<Expression> actuals;
+		public dispatch(Expression v1, String n, List<Expression> a, int l){
 			caller = v1;
 			name = n;
 			actuals = a;
@@ -718,7 +736,7 @@ public class AST {
 		String getString(String space){
 			String str;
 			str = space+"#"+lineNo+"\n"+space+"_dispatch\n"+caller.getString(space+sp)+"\n"+space+sp+name+"\n"+space+sp+"(\n";
-			for ( expression e1 : actuals ) {
+			for ( Expression e1 : actuals ) {
 				str += e1.getString(space+sp)+"\n";	
 			}
 			str+=space+sp+")\n"+space+": "+type;
@@ -726,26 +744,32 @@ public class AST {
 		}
 	}
 	
-	public static class static_dispatch extends expression{
-                public expression caller;
+	public static class static_dispatch extends Expression{
+        public Expression caller;
 		public String typeid;
-                public String name;
-                public List<expression> actuals;
-                public static_dispatch(expression v1, String t, String n, List<expression> a, int l){
-                        caller = v1;
+        public String name;
+        public List<Expression> actuals;
+        public static_dispatch(Expression v1, String t, String n, List<Expression> a, int l){
+            caller = v1;
 			typeid = t;
-                        name = n;
-                        actuals = a;
-                        lineNo = l;
-                }
-                String getString(String space){
-                        String str;
-                        str = space+"#"+lineNo+"\n"+space+"_static_dispatch\n"+caller.getString(space+sp)+"\n"+space+sp+typeid+"\n"+space+sp+name+"\n"+space+sp+"(\n";
-                        for ( expression e1 : actuals ) {
-                                str += e1.getString(space+sp)+"\n";     
-                        }
-                        str+=space+sp+")\n"+space+": "+type;
-                        return str;
+            name = n;
+            actuals = a;
+            lineNo = l;
+            }
+        String getString(String space){
+            String str;
+            str =
+                    space+"#"+lineNo+"\n"
+                    +space+"_static_dispatch\n"
+                    +caller.getString(space+sp)+"\n"
+                    +space+sp+typeid+"\n"
+                    +space+sp+name+"\n"
+                    +space+sp+"(\n";
+            for ( Expression e1 : actuals ) {
+                 str += e1.getString(space+sp)+"\n";
+                 }
+                 str+=space+sp+")\n"+space+": "+type;
+                 return str;
                 }
         }
 }
