@@ -19,12 +19,12 @@ program returns [AST.Program obj]
     ;
 
 // block = class
-programBlocks returns [List<AST.Block> obj]
+programBlocks returns [ArrayList<AST.Block> obj]
     @init
 	{
 		$obj = new ArrayList<AST.Block>();
 	}
-    : (def=classDefine SEMICOLUN programBlocks {$obj.add($def.obj);}) # classes
+    : (def=classDefine SEMICOLUN  {$obj.add($def.obj);} programBlocks) # classes
     //| EOF # EOF
     ;
 
@@ -266,7 +266,7 @@ expr returns [AST.Expression obj]:
     | op=INTEGER_NEGATIVE expr2=expr
     {
            $obj= new AST.Arithmetic(
-                        $expr1.obj,
+                        $expr2.obj,
                         $expr2.obj,
                         $op.getText());
     }
