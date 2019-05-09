@@ -239,6 +239,41 @@ public class AST {
     }
 
     static class BlockOfExpressions extends Expression {
+	ArrayList<AST.Expression> exprs;
+        String v;
+
+        public BlockOfExpr(ArrayList<Expression> exprs){
+            type = "BlockOfExpr";
+            this.exprs = exprs;
+            v = "t" + tCounter++;
+        }
+
+        String getString(String space){
+
+            String str = space + "Expression: type:" + type + "\n";
+
+            for(Expression e: exprs){
+                str += e.getString(space+sp);
+            }
+
+            return str;
+        }
+
+        void gen(){
+            Expression last = new Expression();
+
+            for(Expression e: exprs){
+                e.gen();
+                last = e;
+            }
+
+            prog3AdCode.add(v + " = " + last.getV());
+        }
+
+        @Override
+        String getV(){
+            return v;
+        }
     }
 
     static class Let extends Expression {
