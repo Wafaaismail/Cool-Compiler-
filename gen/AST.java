@@ -191,6 +191,16 @@ public class AST {
     }
 
     static class Assignment extends Expression {
+	public String name;
+        public expression e1;
+        public Assignment(String n, expression v1, int l){
+            name = n;
+            e1 = v1;
+            lineNo = l;
+        }
+        String getString(String space){
+            return space+"#"+lineNo+"\n"+space+"_assign\n"+space+sp+name+"\n"+e1.getString(space+sp)+"\n"+space+": "+type;
+        }
     }
 
     static class If extends Expression {
@@ -274,7 +284,7 @@ public class AST {
     static class Case extends Expression {
         public expression predicate;
         public List<branch> branches;
-        public typcase(expression p, List<branch> b, int l){
+        public Case(expression p, List<branch> b, int l){
             predicate = p;
             branches = b;
             lineNo = l;
