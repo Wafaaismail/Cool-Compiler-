@@ -1,7 +1,7 @@
 parser grammar Cool_parser;
 
 options {
-	tokenVocab = Cool_lexer;
+        tokenVocab = Cool_lexer;
 }
 
 @header{
@@ -56,7 +56,7 @@ formal returns [AST.Formal obj]
 };
 expr returns [AST.Expression obj]:
       id= ID
-      op= ASSIGN_OPERATOR
+      ASSIGN_OPERATOR
       expr1=expr
       {$obj = new AST.Assignment($id.getText(),$exp1.value()); } # assignment
 
@@ -102,26 +102,30 @@ expr returns [AST.Expression obj]:
                 $expr1.value(),
                 $expr2.value(),
                 $op.getText());
-        } # minus
+        }  # minus
 
-    | expr1=expr op = MULTIPLY expr2=expr {
+    | expr1=expr op = MULTIPLY expr2=expr  {
         $obj= new AST.Arithmetic(
             $expr1.value(),
             $expr2.value(),
             $op.getText());
         } # multiplication
 
-    | expr1=expr op = DIVIDE expr2=expr {
+    | expr1=expr op = DIVIDE expr2=expr  {
 
         $obj= new AST.Arithmetic(
             $expr1.value(),
             $expr2.value(),
             $op.getText());
-       } # division
+       }  # division
 
+    | exp1 =expr op= INTEGER_NEGATIVE exp2 =expr {
 
-    //does not follow Arithmatic constractor
-    | INTEGER_NEGATIVE expr2=expr {$obj= new AST.Arithmetic();} # negative
+        $obj= new AST.Arithmetic(
+                   $expr1.value(),
+                   $expr2.value(),
+                   $op.getText());
+        } # negative
 
     | expr1=expr SMALLER_THAN expr2=expr {$obj= new AST.Relational();} # smallerThan
 
@@ -131,7 +135,8 @@ expr returns [AST.Expression obj]:
 
     | NOT expr2=expr {$obj= new AST.Logic();} # boolNot
 
-    | OPENP_PRANSIS exp= expr CLOSE_PRANSIS {$obj = new AST.Expression($exp1.value());}#parentheses
+    | OPENP_PRANSIS exp= expr CLOSE_PRANSIS {
+        $obj = new AST.Parentheses($exp1.value());}#parentheses
 
     | id=ID {$obj = new AST.Id();} # id
 

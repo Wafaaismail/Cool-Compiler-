@@ -21,6 +21,8 @@ public class Main {
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter file path: ");
         inputFilePath = reader.nextLine();
+
+
         /*
         for(String str : args) {
 
@@ -68,7 +70,6 @@ public class Main {
             try{
                 Cool_parser parser = new Cool_parser(tokens);
                 ParseTree tree = parser.program();
-
                 TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
                 viewer.open();
                 System.out.println(tree.toStringTree(parser));

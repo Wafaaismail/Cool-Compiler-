@@ -253,16 +253,40 @@ public class AST {
         }
     }
 
-     //TODO  complete class after check grammer return value
     static class BlockOfExpressions extends Expression {
         ArrayList <AST.Expression> blockOfexprs;
         String v;
         public BlockOfExpressions ( ArrayList <AST.Expression> blockOfexprs){
             this.blockOfexprs = blockOfexprs;
-            //type = "";
+            type = "block";
+            v = "t" + tCounter++;
 
         }
-    }
+
+         @java.lang.Override
+         String getString(String space) {
+            String str = return space + "Expression: type:" + type + "\n" ;
+            for (Expression e : blockOfexprs){
+                str+= e.getString(space+sp)
+            }
+                return str;
+         }
+
+         @java.lang.Override
+         void generate() {
+             Expression list = new Expression();
+             for (Expression e :list){
+                 e.generate();
+                 list = e;
+                 threeAddressCode.add(v + " = "+ list.getV())
+             }
+         }
+
+         @java.lang.Override
+         public String getV() {
+             return v;
+         }
+     }
 
     static class Let extends Expression {
         Expression expression;
@@ -405,6 +429,8 @@ public class AST {
                     break;
                 case "/":
                     type = "DIVIDE";
+                case "~":
+                    type = "INTEGER_NEGATIVE";
                     break;
                 default:
                     type = "undefined type";
@@ -434,6 +460,10 @@ public class AST {
                 break;
                 case "/":
                     return e1.calc() / e2.calc();
+                    break;
+                case "~":
+                    return  -e1.calc() ;
+                break;
                 break;
                 default:
                     return -9999;
