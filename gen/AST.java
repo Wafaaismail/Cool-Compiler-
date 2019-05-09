@@ -288,7 +288,22 @@ public class AST {
             return str;
         }
     }
-
+    // Branch class for holding the cases of class Case
+    public static class branch extends ASTNode {
+		public String name;
+		public String type;
+		public expression value;
+		public branch(String n, String t, expression v, int l){
+			name = n;
+			type = t;
+			value = v;
+			lineNo = l;
+		}
+		String getString(String space){
+			return space+"#"+lineNo+"\n"+space+"_branch\n"+space+sp+name+"\n"+space+sp+type+"\n"+value.getString(space+sp);
+		}
+	}
+    
     static class NewType extends Expression {
         public String type;
 
