@@ -122,5 +122,4 @@ COLUN : ':' ;
 COMMA : ',' ;
 DOT : '.';
 AT : '@';
-DARROW : '=>';
 ERROR : . ;
