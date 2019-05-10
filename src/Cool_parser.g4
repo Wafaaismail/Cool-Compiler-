@@ -194,22 +194,22 @@ expr returns [AST.Expression obj]:
         $obj = new AST.BlockOfExpressions(list);
     }
     # block //block of expressions
-    |
-    {
-        ArrayList<AST.Expression> exprs = new ArrayList<>();
-        ArrayList<String> ids = new ArrayList<>();
-        ArrayList<Boolean> flags = new ArrayList<>();
-        Boolean flag;
-
-    }
-    LET id=ID {flag = false; ids.add($id.getText());} COLUN type=TYPE
-    (ASSIGN_OPERATOR expr1=expr {flag = true; })? {flags.add(flag); exprs.add($expr1.obj);}
-    (COMMA id2=ID {flag = false;  ids.add($id2.getText());} COLUN type2= TYPE
-    (ASSIGN_OPERATOR expr2=expr {flag = true;})? {flags.add(flag); exprs.add($expr2.obj);})* IN expr3=expr
-    {
-        $obj = new AST.Let(flags, ids, exprs, $expr3.obj);
-    }
-    # letIn
+     |
+        {
+            ArrayList<AST.Expression> exprs = new ArrayList<>();
+            ArrayList<String> ids = new ArrayList<>();
+            ArrayList<Boolean> flags = new ArrayList<>();
+            Boolean flag;
+            AST.Expression ex;
+        }
+        LET i1=ID {flag = false; ex = new AST.Expression(); ids.add($i1.getText());} COLUN TYPE
+        (ASSIGN_OPERATOR e1=expr {flag = true; ex = $e1.obj;})? {flags.add(flag); exprs.add(ex);}
+        (COMMA i=ID {flag = false; ex = new AST.Expression(); ids.add($i.getText());} COLUN TYPE
+        (ASSIGN_OPERATOR e=expr {flag = true; ex = $e.obj;})? {flags.add(flag); exprs.add(ex);})* IN e2=expr
+        {
+            $obj = new AST.Let(flags, ids, exprs, $e2.obj);
+        }
+        # letIn
 
     //| CASE expr1=expr OF (id= ID COLUN type=TYPE CASE_ARROW expr2=expr SEMICOLUN)+ESAC
     | CASE expr1=expr OF bl=branch_list ESAC
