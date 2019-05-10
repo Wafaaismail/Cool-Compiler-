@@ -11,7 +11,7 @@ options {
 
 // Parser Rules
 program returns [AST.Program obj]
-    : blocks= programBlocks EOF
+    : blocks= programBlocks //EOF
     {
         $obj = new AST.Program($blocks.obj, $blocks.obj.get(0).lineNo);
 
@@ -25,7 +25,7 @@ programBlocks returns [ArrayList<AST.Block> obj]
 		$obj = new ArrayList<AST.Block>();
 		$obj.add(new AST.Block("", "", new ArrayList<AST.Feature>(), 1));
 	}
-    : (def=classDefine SEMICOLUN  {$obj.add($def.obj);})+ # classes
+    : (def=classDefine {$obj.add($def.obj);} SEMICOLUN )+ # classes
     | EOF # EOF
     ;
 
@@ -50,7 +50,7 @@ featureList returns [ArrayList<AST.Feature> obj]
     {
         $obj = new ArrayList<AST.Feature>();
     }
-    : (f=feature SEMICOLUN {$obj.add($f.obj);})*
+    : (f=feature {$obj.add($f.obj);} SEMICOLUN)*
     ;
 
 feature returns [AST.Feature obj]
@@ -112,21 +112,38 @@ formal returns [AST.Formal obj]
  * branch_entity corresponds to a single branch.
  * branch_entity -> expr:TYPE => expr ;
  */
-branch_list returns [List<AST.branch> obj]
+//branch_list returns [List<AST.branch> obj]
+//	@init
+//	{
+//		$obj = new ArrayList<AST.branch>();
+//	}
+//	:
+//		(b = branch_entity {$obj.add($b.obj);} SEMICOLUN)+
+//	;
+//
+//branch_entity returns [AST.branch obj] :
+//	id=ID COLUN type=TYPE DARROW e=expr
+//		{
+//			$obj = new AST.branch($id.getText(), $type.getText(),$e.obj, $id.getLine());
+//		}
+//	;
+branch_list returns [ArrayList<AST.branch> obj]
 	@init
 	{
 		$obj = new ArrayList<AST.branch>();
 	}
 	:
-		(b = branch_entity {$obj.add($b.obj);})+
+		(b = branch_entity SEMICOLUN {$obj.add($b.obj);} )+
 	;
 
+
 branch_entity returns [AST.branch obj] :
-	id=ID COLUN type=TYPE DARROW e=expr SEMICOLUN
+	id=ID COLUN type=TYPE DARROW ex=expr
 		{
-			$obj = new AST.branch($id.getText(), $type.getText(),$e.obj, $id.getLine());
+			$obj = new AST.branch($id.getText(), $type.getText(),$ex.obj, $id.getLine());
 		}
 	;
+
 
 /* e_list is a list of expressions.
  * These are used in dispatch.
@@ -157,12 +174,12 @@ expr returns [AST.Expression obj]:
         $obj= new AST.dispatch($expr1.obj, $id.getText(), $e.obj, $id.getLine());
     }
     # dispatch
-//    |
-//      id=ID OPENP_PRANSIS e=e_list CLOSE_PRANSIS
-//    {
-//        $obj = new AST.dispatch(new AST.no_expr($id.getLine()), $id.getText(), $e.obj, $id.getLine());
-//    }
-//    # own_dispatch_call
+    |
+      id=ID OPENP_PRANSIS e=e_list CLOSE_PRANSIS
+    {
+        $obj = new AST.dispatch(new AST.no_expr($id.getLine()), $id.getText(), $e.obj, $id.getLine());
+    }
+    # own_dispatch_call
     /* STATIC DISPATCH EXPRESSION
      * expr -> expr@TYPE.OBJECT([[expr[,expr]*]])
      */
@@ -331,3 +348,4 @@ expr returns [AST.Expression obj]:
     }
     # false
     ;
+
