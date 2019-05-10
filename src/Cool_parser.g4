@@ -23,9 +23,10 @@ programBlocks returns [ArrayList<AST.Block> obj]
     @init
 	{
 		$obj = new ArrayList<AST.Block>();
+		$obj.add(new AST.Block("", "", new ArrayList<AST.Feature>(), 1));
 	}
-    : (def=classDefine SEMICOLUN  {$obj.add($def.obj);} programBlocks) # classes
-    //| EOF # EOF
+    : (def=classDefine SEMICOLUN  {$obj.add($def.obj);})+ # classes
+    | EOF # EOF
     ;
 
 //block = class
@@ -44,7 +45,7 @@ classDefine returns [AST.Block obj]
     ;
 
 
-featureList returns [List<AST.Feature> obj]
+featureList returns [ArrayList<AST.Feature> obj]
     @init
     {
         $obj = new ArrayList<AST.Feature>();
@@ -155,13 +156,13 @@ expr returns [AST.Expression obj]:
     {
         $obj= new AST.dispatch($expr1.obj, $id.getText(), $e.obj, $id.getLine());
     }
-//    # dispatch
+    # dispatch
 //    |
 //      id=ID OPENP_PRANSIS e=e_list CLOSE_PRANSIS
 //    {
 //        $obj = new AST.dispatch(new AST.no_expr($id.getLine()), $id.getText(), $e.obj, $id.getLine());
 //    }
-    # own_dispatch_call
+//    # own_dispatch_call
     /* STATIC DISPATCH EXPRESSION
      * expr -> expr@TYPE.OBJECT([[expr[,expr]*]])
      */

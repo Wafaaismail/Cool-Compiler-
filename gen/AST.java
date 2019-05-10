@@ -1,3 +1,5 @@
+import org.stringtemplate.v4.ST;
+
 import java.util.*;
 
 public class AST {
@@ -82,10 +84,10 @@ public class AST {
     static class Method extends Feature {
         String name;
         String retType;
-        public List<Formal> formalList;
+        public ArrayList<Formal> formalList;
         Expression expression;
 
-        public Method(String n, String rt, List<Formal> fl, Expression ee, int l){
+        public Method(String n, String rt, ArrayList<Formal> fl, Expression ee, int l){
             name = n;
             retType = rt;
             formalList = fl;
@@ -210,7 +212,7 @@ public class AST {
     }
 
     static class Assignment extends Expression {
-	Expression e;
+        Expression e;
         public String v;
         public Assignment(String v,Expression e){
             type = "ASSIGN_OPERATOR";
@@ -246,7 +248,7 @@ public class AST {
         @java.lang.Override
         String getString(String space) {
             return space + "Expression Type :" +type + "Expression Value : " + v + "\n"
-                   +space +e.getString(space+sp) +"\n" ;
+                    +space +e.getString(space+sp) +"\n" ;
         }
 
         @java.lang.Override
@@ -333,7 +335,7 @@ public class AST {
     }
 
     static class BlockOfExpressions extends Expression {
-	ArrayList <AST.Expression> blockOfexprs;
+        ArrayList <AST.Expression> blockOfexprs;
         String v;
         public BlockOfExpressions ( ArrayList <AST.Expression> blockOfexprs){
             this.blockOfexprs = blockOfexprs;
@@ -342,29 +344,29 @@ public class AST {
 
         }
 
-         @java.lang.Override
-         String getString(String space) {
+        @java.lang.Override
+        String getString(String space) {
             String str = space + "Expression: type:" + type + "\n" ;
             for (Expression e : blockOfexprs){
                 str+= e.getString(space+sp);
             }
-                return str;
-         }
+            return str;
+        }
 
-         @java.lang.Override
-         void generate() {
-             Expression list = new Expression();
-             for (Expression e : blockOfexprs){
-                 e.generate();
-                 list = e;
-                 threeAddressCode.add(v + " = "+ list.getV());
-             }
-         }
+        @java.lang.Override
+        void generate() {
+            Expression list = new Expression();
+            for (Expression e : blockOfexprs){
+                e.generate();
+                list = e;
+                threeAddressCode.add(v + " = "+ list.getV());
+            }
+        }
 
-         @java.lang.Override
-         public String getV() {
-             return v;
-         }
+        @java.lang.Override
+        public String getV() {
+            return v;
+        }
     }
 
     static class Let extends Expression {
@@ -426,25 +428,25 @@ public class AST {
     }
     // Branch class for holding the cases of class Case
     public static class branch extends ASTNode {
-		public String name;
-		public String type;
-		public Expression value;
-		public branch(String n, String t, Expression v, int l){
-			name = n;
-			type = t;
-			value = v;
-			lineNo = l;
-		}
-		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_branch\n"+space+sp+name+"\n"+space+sp+type+"\n"+value.getString(space+sp);
-		}
+        public String name;
+        public String type;
+        public Expression value;
+        public branch(String n, String t, Expression v, int l){
+            name = n;
+            type = t;
+            value = v;
+            lineNo = l;
+        }
+        String getString(String space){
+            return space+"#"+lineNo+"\n"+space+"_branch\n"+space+sp+name+"\n"+space+sp+type+"\n"+value.getString(space+sp);
+        }
 
         @Override
         void generate() {
 
         }
     }
-    
+
     static class NewType extends Expression {
         public String type;
 
@@ -536,44 +538,45 @@ public class AST {
 
         @java.lang.Override
         int calc() {
-            switch (op) {
-                case "+":
-                    return e1.calc() + e2.calc();
-
-                case "-":
-                    return e1.calc() - e2.calc();
-
-                case "*":
-                    return e1.calc() * e2.calc();
-
-                case "/":
-                    return e1.calc() / e2.calc();
-
-                case "~":
-                    return  -e1.calc() ;
-
-                default:
-                    return -9999;
-            }
+//            switch (op) {
+//                case "+":
+//                    return e1.calc() + e2.calc();
+//
+//                case "-":
+//                    return e1.calc() - e2.calc();
+//
+//                case "*":
+//                    return e1.calc() * e2.calc();
+//
+//                case "/":
+//                    return e1.calc() / e2.calc();
+//
+//                case "~":
+//                    return  -e1.calc() ;
+//
+//                default:
+//                    return -9999;
+//            }
+            return 1;
         }
 
-            @java.lang.Override
-            void generate () {
-                e1.calc();
-                e2.calc();
-                threeAddressCode.add(
-                        v + " = " + e1.getV() + op + e2.getV()
-                );
-            }
+        @java.lang.Override
+        void generate () {
+            e1.calc();
+            e2.calc();
+            threeAddressCode.add(
+                    v + " = " + e1.getV() + op + e2.getV()
+            );
+        }
 
-            @java.lang.Override
-            public String getV () {
-                return v;
-            }
+        @java.lang.Override
+        public String getV () {
+            return v;
+        }
     }
 
     static class Relational extends Expression {
-	    Expression e1;
+        Expression e1;
         Expression e2;
         String op;
         public String v;
@@ -686,6 +689,7 @@ public class AST {
             return space + "Expression Type:" + type + " value = " + value + "\n";
         }
 
+        int calc(){return value;}
         String getV(){
             return v;
         }
@@ -693,7 +697,7 @@ public class AST {
 
 
     static class Literal extends Expression {
-	public String v;
+        public String v;
         public Literal(String st){
             type = "String";
             v = st;
@@ -731,52 +735,52 @@ public class AST {
     }
     // Class dispatch for calling methods
     public static class dispatch extends Expression{
-		public Expression caller;
-		public String name;
-		public List<Expression> actuals;
-		public dispatch(Expression v1, String n, List<Expression> a, int l){
-			caller = v1;
-			name = n;
-			actuals = a;
-			lineNo = l;
-		} 
-		String getString(String space){
-			String str;
-			str = space+"#"+lineNo+"\n"+space+"_dispatch\n"+caller.getString(space+sp)+"\n"+space+sp+name+"\n"+space+sp+"(\n";
-			for ( Expression e1 : actuals ) {
-				str += e1.getString(space+sp)+"\n";	
-			}
-			str+=space+sp+")\n"+space+": "+type;
-			return str;
-		}
-	}
-	
-	public static class static_dispatch extends Expression{
         public Expression caller;
-		public String typeid;
+        public String name;
+        public List<Expression> actuals;
+        public dispatch(Expression v1, String n, List<Expression> a, int l){
+            caller = v1;
+            name = n;
+            actuals = a;
+            lineNo = l;
+        }
+        String getString(String space){
+            String str;
+            str = space+"#"+lineNo+"\n"+space+"_dispatch\n"+caller.getString(space+sp)+"\n"+space+sp+name+"\n"+space+sp+"(\n";
+            for ( Expression e1 : actuals ) {
+                str += e1.getString(space+sp)+"\n";
+            }
+            str+=space+sp+")\n"+space+": "+type;
+            return str;
+        }
+    }
+
+    public static class static_dispatch extends Expression{
+        public Expression caller;
+        public String typeid;
         public String name;
         public List<Expression> actuals;
         public static_dispatch(Expression v1, String t, String n, List<Expression> a, int l){
             caller = v1;
-			typeid = t;
+            typeid = t;
             name = n;
             actuals = a;
             lineNo = l;
-            }
+        }
         String getString(String space){
             String str;
             str =
                     space+"#"+lineNo+"\n"
-                    +space+"_static_dispatch\n"
-                    +caller.getString(space+sp)+"\n"
-                    +space+sp+typeid+"\n"
-                    +space+sp+name+"\n"
-                    +space+sp+"(\n";
+                            +space+"_static_dispatch\n"
+                            +caller.getString(space+sp)+"\n"
+                            +space+sp+typeid+"\n"
+                            +space+sp+name+"\n"
+                            +space+sp+"(\n";
             for ( Expression e1 : actuals ) {
-                 str += e1.getString(space+sp)+"\n";
-                 }
-                 str+=space+sp+")\n"+space+": "+type;
-                 return str;
-                }
+                str += e1.getString(space+sp)+"\n";
+            }
+            str+=space+sp+")\n"+space+": "+type;
+            return str;
         }
+    }
 }
