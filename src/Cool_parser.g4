@@ -112,21 +112,6 @@ formal returns [AST.Formal obj]
  * branch_entity corresponds to a single branch.
  * branch_entity -> expr:TYPE => expr ;
  */
-//branch_list returns [List<AST.branch> obj]
-//	@init
-//	{
-//		$obj = new ArrayList<AST.branch>();
-//	}
-//	:
-//		(b = branch_entity {$obj.add($b.obj);} SEMICOLUN)+
-//	;
-//
-//branch_entity returns [AST.branch obj] :
-//	id=ID COLUN type=TYPE DARROW e=expr
-//		{
-//			$obj = new AST.branch($id.getText(), $type.getText(),$e.obj, $id.getLine());
-//		}
-//	;
 branch_list returns [ArrayList<AST.branch> obj]
 	@init
 	{
@@ -138,7 +123,7 @@ branch_list returns [ArrayList<AST.branch> obj]
 
 
 branch_entity returns [AST.branch obj] :
-	id=ID COLUN type=TYPE DARROW ex=expr
+	id=ID COLUN type=TYPE CASE_ARROW ex=expr
 		{
 			$obj = new AST.branch($id.getText(), $type.getText(),$ex.obj, $id.getLine());
 		}
