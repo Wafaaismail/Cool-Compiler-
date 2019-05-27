@@ -50,8 +50,20 @@ Line : 8, Type : 23, Value : out_string
 Line : 8, Type : 43, Value : (
 Line : 8, Type : 21, Value : "Good Luck\n"
 Line : 8, Type : 44, Value : )
-Line : 10, Type : 42, Value : }
-Line : 10, Type : 47, Value : ;
-Line : 12, Type : 42, Value : }
-Line : 12, Type : 47, Value : ;
-Line : 13, Type : -1, Value : <EOF>
+Line : 9, Type : 3, Value : if
+Line : 9, Type : 22, Value : FALSE
+Line : 9, Type : 4, Value : then
+Line : 9, Type : 43, Value : (
+Line : 9, Type : 17, Value : new
+Line : 9, Type : 22, Value : IO
+Line : 9, Type : 44, Value : )
+Line : 9, Type : 50, Value : .
+Line : 9, Type : 23, Value : out_string
+Line : 9, Type : 43, Value : (
+Line : 9, Type : 21, Value : "False\n"
+Line : 9, Type : 44, Value : )
+Line : 11, Type : 42, Value : }
+Line : 11, Type : 47, Value : ;
+Line : 13, Type : 42, Value : }
+Line : 13, Type : 47, Value : ;
+Line : 14, Type : -1, Value : <EOF>

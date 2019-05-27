@@ -1,5 +1,4 @@
-// Generated from /home/wafaaismail/compiler/src/Cool.g4 by ANTLR 4.7.2
-
+// Generated from /home/wafaaismail/Desktop/compiler/src/Cool.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -11,48 +10,34 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 public class CoolBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements CoolVisitor<T> {
-
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitProgram(CoolParser.ProgramContext ctx) {
-//		Value progBlocks= visit(ctx.programBlocks());
-		//System.out.println("program Blocks :"+ progBlocks );
-		return null;
-	}
+	@Override public T visitProgram(CoolParser.ProgramContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitClasses(CoolParser.ClassesContext ctx) {
-		T classdef =visit(ctx.classDefine());
-		T progBlocks= visit(ctx.programBlocks());
-		return this.visitChildren(ctx);
-	}
+	@Override public T visitClasses(CoolParser.ClassesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEof(CoolParser.EofContext ctx) {
-		return visitChildren(ctx); }
+	@Override public T visitEof(CoolParser.EofContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitClassDefine(CoolParser.ClassDefineContext ctx) {
-
-
-
-		return visitChildren(ctx); }
+	@Override public T visitClassDefine(CoolParser.ClassDefineContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -99,6 +84,7 @@ public class CoolBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements C
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitIsvoid(CoolParser.IsvoidContext ctx) { return visitChildren(ctx); }
@@ -206,30 +192,21 @@ public class CoolBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements C
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAssignment(CoolParser.AssignmentContext ctx) {
-//		String id = ctx.ID().getText();
-//		T value = visit(ctx.expr());
-//		memory.put(id,value);
-		return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 * @return
-	 */
-	@Override public T  visitFalse(CoolParser.FalseContext ctx) {
-
-		return visitChildren(ctx);
-	}
+	@Override public T visitAssignment(CoolParser.AssignmentContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInt(CoolParser.IntContext ctx) {return visitChildren(ctx); }
-
+	@Override public T visitFalse(CoolParser.FalseContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitInt(CoolParser.IntContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

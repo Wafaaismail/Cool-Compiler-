@@ -71,8 +71,8 @@ public class Main {
                 CoolParser parser = new CoolParser(tokens);
                 ParseTree tree = parser.program();
 
-                CoolBaseVisitor baseVisitor = new CoolBaseVisitor();
-                baseVisitor.visit(tree);
+                myVisitor myvisitor = new myVisitor();
+                myvisitor.visit(tree);
 
                 TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
                 viewer.open();

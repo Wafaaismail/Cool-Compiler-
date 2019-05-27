@@ -4,7 +4,8 @@ public class Value {
 
     final Object value;
 
-    public Value(Object value) {
+
+    public Value(Object value ) {
         this.value = value;
     }
 
@@ -12,8 +13,8 @@ public class Value {
         return (Boolean)value;
     }
 
-    public Double asDouble() {
-        return (Double)value;
+    public Integer asInt() {
+        return (Integer)value;
     }
 
     public String asString() {

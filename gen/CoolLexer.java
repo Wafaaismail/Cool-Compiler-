@@ -1,10 +1,12 @@
-// Generated from /home/wafaaismail/compiler/src/Cool.g4 by ANTLR 4.7.2
+// Generated from /home/wafaaismail/Desktop/compiler/src/Cool.g4 by ANTLR 4.7.2
+import org.antlr.v4.runtime.Lexer;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.antlr.v4.runtime.atn.LexerATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class CoolLexer extends Lexer {
@@ -32,7 +34,7 @@ public class CoolLexer extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"A", "C", "D", "E", "F", "H", "I", "L", "N", "O", "P", "R", "S", "Value",
+			"A", "C", "D", "E", "F", "H", "I", "L", "N", "O", "P", "R", "S", "T", 
 			"U", "V", "W", "INHERITS", "CLASS", "IF", "THEN", "ELSE", "FI", "WHILE", 
 			"LOOP", "POOL", "LET", "IN", "CASE", "OF", "ESAC", "ISVOID", "NOT", "NEW", 
 			"TRUE", "FALSE", "INTEGER", "LITERAL", "TYPE", "ID", "ASSIGN_OPERATOR", 
@@ -116,8 +118,8 @@ public class CoolLexer extends Lexer {
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
-//	@Override
-//	public String[] getChannelNames() { return channelNames; }
+	@Override
+	public String[] getChannelNames() { return channelNames; }
 
 	@Override
 	public String[] getModeNames() { return modeNames; }
