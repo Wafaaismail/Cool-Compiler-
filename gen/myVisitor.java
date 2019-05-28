@@ -363,13 +363,41 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         }
         return Value.VOID;
     }
-
+    
     /**
-     * @Class : own method call
-     * @production :ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # ownMethodCall
-     * @Description : method in form id (params)
+     * @Class : property
+     * @production : ID COLUN TYPE (ASSIGN_OPERATOR expr)? # property
+     * @Description : Variable identification and assigment
      * */
+    @Override public Value visitProperty(CoolParser.PropertyContext ctx) {
+        if(SymbolTable.tableScope.peek().table.containsValue(ctx.ID(0).getText())){
+            System.err.println("dublicate of declaration at ^" + ctx.ID(0).getText());
+            return Value.VOID;
+        }
+        else{
+            SymbolTable.tableScope.peek().put("ID", ctx.ID(0).getText());
+            if(ctx.getChildCount > 3){
+                System.out.println(ctx.ID(0).getText() + " = " + visit(ctx.expr()) + "\n");
+            }
+            return Value.VOID;
+        }
+    }	
+   
+    /**
+     * @Class : method
+     * @production : ID OPENP_RANSIS (formal (COMMA formal)*)* CLOSE_PRANSIS COLUN TYPE OPEN_CURLY expr CLOSE_CURLY # method
+     * @Description : method in form foo(): Int { 1 }
+     * */
+    @Override public Value visitMethod(CoolParser.MethodContext ctx) {
+        System.out.println(ctx.ID(0).getText()+":\n");
+        System.out.println("BeginFunc;\n");
+        System.out.println("Return " + visit(ctx.st()) + "\n");
+        System.out.println("EndFunc;\n");
+
+        return Value.VOID;
+    }
     // need test
+    /* OwnMethodCall old
     @Override public Value visitOwnMethodCall(CoolParser.OwnMethodCallContext ctx) {
         for (int i = 1; i < ctx.getChildCount(); i++) {
             System.out.println("Param" + visit(ctx.expr(i)));
@@ -379,7 +407,31 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         return Value.VOID;
 
     }
+    */
+    /**
+     * @Class : own method call
+     * @production :ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # ownMethodCall
+     * @Description : method in form id (params)
+     * */
+     @Override public Value visitOwnMethodCall(CoolParser.OwnMethodCallContext ctx) {
+        Temp t = new Temp();
 
+        int counter = 0;
+        if(ctx.getChildCount() > 3){// 3 because initially we have 3 tokens for a function: functionName, ( and ) For example, foo().
+            counter++;
+            System.out.println("PushParam" + visit(ctx.expr(0)) + "\n");
+            for(int i = 0 ; i < (ctx.getChildCount() - 4) / 2 ; i++){
+                // The above calculation to exclude the comma if there are more than one parameter as we want only the parameters.
+                counter++;
+                System.out.println("PushParam" + visit(ctx.expr(i + 1)) + "\n");
+            }
+        }
+        System.out.println(t.toString() + "LCall" + ctx.ID().getText() + "\n");
+        System.out.println("PopParams" + counter*4 + "\n");
+
+        return Value(t.toString());
+    }
+	
     /**
      * @Class : let
      * @production : LET ID COLUN TYPE (ASSIGN_OPERATOR expr)? (COMMA ID COLUN TYPE (ASSIGN_OPERATOR expr)?)* IN expr # letIn
