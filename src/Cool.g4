@@ -12,13 +12,17 @@ programBlocks
 classDefine: CLASS TYPE (INHERITS TYPE)? OPEN_CURLY (feature SEMICOLUN)* CLOSE_CURLY;
 
 feature: ID OPENP_RANSIS (formal (COMMA formal)*)* CLOSE_PRANSIS COLUN TYPE OPEN_CURLY expr CLOSE_CURLY # method
+// Annotation "method" means the actual implementation of the method. For example, foo(): Int { 1 }
     | ID COLUN TYPE (ASSIGN_OPERATOR expr)? # property
     ;
 
 formal: ID COLUN TYPE;
 expr: ID ASSIGN_OPERATOR expr # assignment
-    | expr (AT TYPE)? DOT ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # methodCall
+    | expr (AT TYPE)? DOT ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # methodCal
+// Annotation "methodCall" means accessing methods of parent classes that have been hidden by redefinitions in child classes.
+// For example, e@B.f(x) invokes the method f (with expression x) in class B on the object that is the value of e ... Usually, we don't use it.
     | ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # ownMethodCall
+// Annotation "ownMethodCall" means normal calling of a function. For example, add() or add(x) or add (x, y).
     | IF expr THEN expr ELSE expr FI # if
     | WHILE expr LOOP expr POOL # while
     | OPEN_CURLY (expr SEMICOLUN)+ CLOSE_CURLY # block
