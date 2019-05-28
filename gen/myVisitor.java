@@ -4,10 +4,16 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-// TODO: 27/05/19 fix results
-// TODO: 27/05/19 change tval to array list better
-// TODO: 27/05/19 implement new / case / let / block /methodCall
-//  /ownMethodCall / classes /proprtey  >>> check productions again to avoid missing any production
+// TODO: 28/05/19 scope problem
+/**
+ * we need to specify scoope for blocks using symbol table class
+ * we can do this as it every new scope it push new table and make last table
+ * as its parent to navigate until reach main scoope which is parent is null .
+ *
+ * >> so we need to replace any put and get in code used hash table to symbol table methods
+ * and check on value in symbol table if we need
+ *
+ * */
 // TODO: 27/05/19 Print in file insted of consol
 // TODO: 27/05/19 update project readme
 // TODO: 27/05/19 provide simple testCases
@@ -21,12 +27,43 @@ public class myVisitor extends CoolBaseVisitor<Value> {
     private Hashtable <Value, Value> tval = new Hashtable<Value,Value>();
 
 
+    /**
+    * @Class The SymbolTable  stores named identifiers, allows them to be located by name, and
+       keeps track of its parent.
+    * */
+    public static class SymbolTable {
+        private Hashtable table;
+        public static Stack<SymbolTable> tableScope = new Stack<>();
+        protected SymbolTable outer;
+        public SymbolTable(SymbolTable st) {
+            table = new Hashtable();
+            outer = st;
+        }
+        public void put(String token, String value) {
+            table.put(token, value);
+        }
+        public boolean get(String value) {
+            for (SymbolTable tab = this ; tab != null ; tab = tab.outer) {
+                if(tab.table.containsValue(value)){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    /**
+     * @Class generate temp used in 3 add code to print*
+     * */
     static public class Temp{
         static int count = 0;
         int number;
         public Temp() { number = ++count; }
         public String toString() { return "t" + number; }
     }
+    /**
+     * @Class generate labels used in 3 add code to print*
+     * */
     static public class Label{
         static int count = 0;
         int number;
@@ -34,29 +71,20 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         public String toString() { return "L" + number; }
     }
 
-    //    @Override
-//    public Value visitProgram(CoolParser.ProgramContext ctx) {
-//        Value progBlocks = visit(ctx.programBlocks());
-//        System.out.println("program Blocks :" + progBlocks);
-//
-//        return visitChildren(ctx);
-//    }
-//
-//    @Override
-//    public Value visitClasses(CoolParser.ClassesContext ctx) {
-//        Value classdef = visit(ctx.classDefine());
-//        Value progBlocks = visit(ctx.programBlocks());
-//        return visitChildren(ctx);
-//    }
-//
-    @Override
-    public Value visitAssignment(CoolParser.AssignmentContext ctx) {
+    /**
+     * @Class :assignment
+     * @production :ID ASSIGN_OPERATOR expr # assignment
+     * @Description :  t1 = 6 >> x= t1
+     * */
+    @Override public Value visitAssignment(CoolParser.AssignmentContext ctx) {
 
-      //  System.out.println("visit assign");
         String id = ctx.ID().getText();
         Value value = visit(ctx.expr());
 
         Temp temp  = new Temp();
+//        if (!SymbolTable.tableScope.peek().get(id)){
+//            System.err.println("undeclared variable at :" + id);
+//        }
         memory.put(id, value);
         tmemory.put(id,temp.toString());
         tval.put(new Value(temp.toString()),value);
@@ -67,44 +95,78 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         return new Value(temp.toString());
 
     }
-    @Override
-    public Value visitInt(CoolParser.IntContext ctx) {
-    //    System.out.println("visit int ");
+
+    /**
+     * @Class :int
+     * @production :INTEGER # int
+     * @Description : return integer specified in production
+     * */
+    @Override public Value visitInt(CoolParser.IntContext ctx) {
+
         return new Value(Integer.valueOf(ctx.getText()));
     }
 
+    /**
+     * @Class :  string
+     * @production :LITERAL # string
+     * @Description : return litral specified in production
+     * */
     @Override public Value visitString(CoolParser.StringContext ctx) {
 
         return  new Value(String.valueOf(ctx.getText()));
     }
 
-
+    /**
+     * @Class :  false
+     * @production :FALSE # false
+     * @Description : false برضوا
+     * */
     @Override public Value visitFalse(CoolParser.FalseContext ctx) {
-		return new Value(Boolean.valueOf(ctx.getText()));
+
+        return new Value(Boolean.valueOf(ctx.getText()));
 	}
 
+    /**
+     * @Class :  true
+     * @production :TRUE # true
+     * @Description : true
+     * */
     @Override public Value visitTrue(CoolParser.TrueContext ctx) {
 
         return new Value(Boolean.valueOf(ctx.getText()));
     }
 
+    /**
+     * @Class :  id
+     * @production :ID # id
+     * @Description : get id
+     * */
     @Override public Value visitId(CoolParser.IdContext ctx) {
-       // System.out.println("Visit id");
         String id = ctx.getText();
         Value value = memory.get(id);
-        if(value == null) {
-            throw new RuntimeException("no such variable: " + id);
-        }
+//        if(value == null) {
+//            throw new RuntimeException("no such variable: " + id);
+//        }
         String t = tmemory.get(id);
 
         return new Value(t);
     }
 
+    /**
+     * @Class :  paran
+     * @production : OPENP_RANSIS expr CLOSE_PRANSIS # parentheses
+     * @Description : visit pass
+     * */
     @Override public  Value visitParentheses(CoolParser.ParenthesesContext ctx) {
 
         return visit(ctx.expr());
     }
 
+    /** check this>> wafaa
+     * @Class :  string
+     * @production : NOT expr # boolNot
+     * @Description : t1 = !t2
+     * */
     @Override public Value visitBoolNot(CoolParser.BoolNotContext ctx) {
 
         Value value = this.visit(ctx.expr());
@@ -113,45 +175,56 @@ public class myVisitor extends CoolBaseVisitor<Value> {
 
         return new Value(!value.asBoolean());
     }
-
+    /**
+     * @Class :  addition
+     * @production :| expr PLUS expr # plus
+     * @Description : t3 = t2 + t1;
+     * */
     @Override public Value visitPlus(CoolParser.PlusContext ctx) {
-        System.out.println("visit plus");
 
         Value left = this.visit(ctx.expr(0)); //t VALUE
         Value right = this.visit(ctx.expr(1));
         Temp temp = new Temp();
-      //  Value res = new Value(left + right);
-       // tval.put(new Value(temp.toString()),res);
         System.out.println(temp.toString() + " = " + left + " + " + right);
 
         return new Value(temp.toString());
        }
+
+    /**
+     * @Class :  subtract
+     * @production : expr MINUS expr # minus
+     * @Description : t3 = t2 - t1
+     * */
     @Override public Value visitMinus(CoolParser.MinusContext ctx) {
 
         Value left = this.visit(ctx.expr(0)); //t VALUE
         Value right = this.visit(ctx.expr(1));
         Temp temp = new Temp();
-        //  Value res = new Value(left + right);
-        // tval.put(new Value(temp.toString()),res);
         System.out.println(temp.toString() + " = " + left + " - " + right);
 
         return new Value(temp.toString());
     }
 
+    /**
+     * @Class :  multiplication
+     * @production : expr MULTIPLY expr # multiplication
+     * @Description : t3 = t2 * t1
+     * */
     @Override public Value visitMultiplication(CoolParser.MultiplicationContext ctx) {
-
-        System.out.println("visit Multply");
 
         Value left = this.visit(ctx.expr(0)); //t VALUE
         Value right = this.visit(ctx.expr(1));
         Temp temp = new Temp();
-        //  Value res = new Value(left + right);
-        // tval.put(new Value(temp.toString()),res);
         System.out.println(temp.toString() + " = " + left + " * " + right);
 
         return new Value(temp.toString());
     }
 
+    /**
+     * @Class :  Division
+     * @production :expr DIVIDED expr # division
+     * @Description : t3 = t2 / t1
+     * */
     @Override public Value visitDivision(CoolParser.DivisionContext ctx) {
 
         System.out.println("visit Division");
@@ -159,15 +232,18 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         Value left = this.visit(ctx.expr(0)); //t VALUE
         Value right = this.visit(ctx.expr(1));
         Temp temp = new Temp();
-        //  Value res = new Value(left + right);
-        // tval.put(new Value(temp.toString()),res);
         System.out.println(temp.toString() + " = " + left + " / " + right);
 
         return new Value(temp.toString());
     }
 
+    /**
+     * @Class :  less than or equal
+     * @production : expr LESS_THAN_OR_EQUAL expr # lessOREqual
+     * @Description : t3 = t2 <= t1;
+     * */
     @Override public Value visitLessOREqual(CoolParser.LessOREqualContext ctx) {
-        System.out.println("Visit <=");
+
         Value left = this.visit(ctx.expr(0));
         Value right = this.visit(ctx.expr(1));
         Temp temp = new Temp();
@@ -176,9 +252,13 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         return new Value(temp.toString());
     }
 
-
+    /**
+     * @Class :  less than
+     * @production :expr SMALLER_THAN expr # smallerThan
+     * @Description : t3 = t2 < t1
+     * */
     @Override public Value visitSmallerThan(CoolParser.SmallerThanContext ctx) {
-      //  System.out.println("Visit <");
+
         Value left = this.visit(ctx.expr(0));
         Value right = this.visit(ctx.expr(1));
         Temp temp = new Temp();
@@ -186,8 +266,13 @@ public class myVisitor extends CoolBaseVisitor<Value> {
 
         return new Value(temp.toString());
     }
+
+    /**
+     * @Class :  negate
+     * @production :INTEGER_NEGATIVE expr # negative
+     * @Description :t2 = ~ t1
+     * */
     @Override public Value visitNegative(CoolParser.NegativeContext ctx) {
-        System.out.println("Visit ~");
 
         Value eval = this.visit(ctx.expr());
         Temp temp = new Temp();
@@ -196,6 +281,11 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         return new Value(temp.toString());
     }
 
+    /**
+     * @Class :  Equality
+     * @production : expr EQUAL expr # equal
+     * @Description : t3 = t2 == t1
+     * */
     @Override public Value visitEqual(CoolParser.EqualContext ctx) {
         System.out.println("Visit =");
         Value left = this.visit(ctx.expr(0));
@@ -205,7 +295,12 @@ public class myVisitor extends CoolBaseVisitor<Value> {
 
         return new Value(temp.toString());
     }
-    //IF expr THEN expr ELSE expr FI # if
+
+    /**
+     * @Class :  if
+     * @production :IF expr THEN expr ELSE expr FI # if
+     * @Description : if exp goto l1 exp  l1: exp
+     * */
     @Override public Value visitIf(CoolParser.IfContext ctx) {
         Label label = new Label();
         System.out.println("IF ");
@@ -217,25 +312,84 @@ public class myVisitor extends CoolBaseVisitor<Value> {
 
         return Value.VOID;
     }
-    //need test
+
+    /**
+     * @Class :  is void
+     * @production :ISVOID expr # isvoid
+     * @Description : is void ? true
+     * */
+    //need test i don't think we need it اساسا
     @Override public Value visitIsvoid(CoolParser.IsvoidContext ctx) {
         Temp temp  = new Temp();
         System.out.println(temp.toString() +"Is Void");
         Value val = this.visit(ctx.expr());
-
         return new Value(temp.toString());
     }
-    // WHILE expr LOOP expr POOL # while
-    //need test
+
+    /**
+     * @Class :  while
+     * @production :WHILE expr LOOP expr POOL # while
+     * @Description : structure while loop : l1  expr+ goto l1
+     * */
    @Override public Value visitWhile(CoolParser.WhileContext ctx) {
+
        Label label = new Label();
        System.out.println("Loop: " + label.toString()  + "\n" );
        System.out.println("While");
        this.visit(ctx.expr(0));
        this.visit(ctx.expr(1));
-       System.out.println("\n" + label.toString() +" : ");
+       System.out.println("go to " + label.toString());
+       return Value.VOID;
+    }
 
-       return Value.VOID }
+    /**
+     * @Class :  Case
+     * @production :CASE expr OF (ID COLUN TYPE CASE_ARROW expr SEMICOLUN)+ESAC # case
+     *
+     *  under constrction yet
+     * */
+    @Override public Value visitCase(CoolParser.CaseContext ctx) { return visitChildren(ctx); }
+
+    /**
+     * @Class :  blocks
+     * @production : OPEN_CURLY (expr SEMICOLUN)+ CLOSE_CURLY # block
+     * @Description : define scope of work
+     * */
+    //need test >> null pointer
+    @Override public Value visitBlock(CoolParser.BlockContext ctx) {
+        for (int i=0; i< ctx.getChildCount();i++){
+            System.out.println("he");
+            visit(ctx.expr(i));
+        }
+        return Value.VOID;
+    }
+
+    /**
+     * @Class : own method call
+     * @production :ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # ownMethodCall
+     * @Description : method in form id (params)
+     * */
+    // need test
+    @Override public Value visitOwnMethodCall(CoolParser.OwnMethodCallContext ctx) {
+        for (int i = 1; i < ctx.getChildCount(); i++) {
+            System.out.println("Param" + visit(ctx.expr(i)));
+        }
+        System.out.println("Call" + ctx.getText() + ctx.getChildCount());
+
+        return Value.VOID;
+
+    }
+
+    /**
+     * @Class : let
+     * @production : LET ID COLUN TYPE (ASSIGN_OPERATOR expr)? (COMMA ID COLUN TYPE (ASSIGN_OPERATOR expr)?)* IN expr # letIn
+     * @Description : Declare variable in scope
+     * */
+    @Override public Value visitLetIn(CoolParser.LetInContext ctx) {
+      String id = ctx.ID.getText();
+
+        return visitChildren(ctx);
+    }
 
 
 }

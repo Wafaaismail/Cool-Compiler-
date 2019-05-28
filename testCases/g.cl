@@ -1,15 +1,15 @@
 
+
+
 class Main{
    main():Object{
    {
 
    x<-2;
-   if x<5
-        	then x<-6
-        	else x<-9
-        	 fi;
+   while x<5 LOOP
+        x<-6+1
+    POOL;
 
-   };
 
-   };
+};
 };

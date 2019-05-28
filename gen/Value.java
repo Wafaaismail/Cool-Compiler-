@@ -1,3 +1,8 @@
+
+/**
+ * use this class for type conversions for T of visitor pattern
+ * */
+
 public class Value {
 
     public static Value VOID = new Value(new Object());

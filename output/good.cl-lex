@@ -10,7 +10,7 @@ Line : 3, Type : 48, Value : :
 Line : 3, Type : 22, Value : Object
 Line : 3, Type : 41, Value : {
 Line : 4, Type : 23, Value : i
-Line : 4, Type : 48, Value : :
+Line : 4, Type : 24, Value : <-
 Line : 4, Type : 22, Value : Int
 Line : 4, Type : 31, Value : -
 Line : 4, Type : 28, Value : >
