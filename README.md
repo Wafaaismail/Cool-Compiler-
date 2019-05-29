@@ -76,6 +76,20 @@
 ## Semantic rules:
 
 ## 3 address code generation:
+ANTLR4 Provides 2 Methods to generate 3 address code
+1- Listener Method
+2- Visitor Method
 
+###Diferences between them:
+1-Listener methods are called automatically by the ANTLR provided walker object, whereas visitor methods must walk their children with explicit visit calls. Forgetting to invoke visit() on a node’s children means those subtrees don’t get visited.
+2-Listener methods can’t return a value, whereas visitor methods can return any custom type. 
+3-With listener, you will have to use mutable variables to store values, whereas with visitor there is no such need.
+4-Listener uses an explicit stack allocated on the heap, whereas visitor uses call stack to manage tree traversals.
+5-to directly use the parser output for interpretation, the visitor is a good choice. You have full control of the traversal, so in conditionals only one branch is visited, loops can be visited n times and so on.
 
+so we use Visitor method
+
+example:
   
+![original code](https://i.imgur.com/K3tIIE9.png)
+![original code](https://i.imgur.com/tLbF9Z0.png)
