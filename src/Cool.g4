@@ -18,10 +18,10 @@ feature: ID OPENP_RANSIS (formal (COMMA formal)*)* CLOSE_PRANSIS COLUN TYPE OPEN
 
 formal: ID COLUN TYPE;
 expr: ID ASSIGN_OPERATOR expr # assignment
-    | expr (AT TYPE)? DOT ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # methodCall
+    | expr (AT TYPE)? DOT ID OPENP_RANSIS (expr (COMMA expr)*)? CLOSE_PRANSIS # methodCall
 // Annotation "methodCall" means accessing methods of parent classes that have been hidden by redefinitions in child classes.
 // For example, e@B.f(x) invokes the method f (with expression x) in class B on the object that is the value of e ... Usually, we don't use it.
-    | ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # ownMethodCall
+    | ID OPENP_RANSIS (expr (COMMA expr)*)? CLOSE_PRANSIS # ownMethodCall
 // Annotation "ownMethodCall" means normal calling of a function. For example, add() or add(x) or add (x, y).
     | IF expr THEN expr ELSE expr FI # if
     | WHILE expr LOOP expr POOL # while

@@ -4,14 +4,10 @@
     <list default="true" id="b73d8150-988b-4dba-8701-9dee03fe84a2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/myVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/myVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/g.cl-lex" beforeDir="false" afterPath="$PROJECT_DIR$/output/g.cl-lex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/compiler/CoolBaseVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/CoolBaseVisitor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production/compiler/Value.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/Value.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/compiler/myVisitor$Label.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/myVisitor$Label.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/compiler/myVisitor$Temp.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/myVisitor$Temp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/production/compiler/myVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/myVisitor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cool.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cool.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testCases/g.cl" beforeDir="false" afterPath="$PROJECT_DIR$/testCases/g.cl" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,15 +24,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gen/myVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="309" column="29" selection-start-line="309" selection-start-column="29" selection-end-line="309" selection-end-column="29" />
+            <state relative-caret-position="18">
+              <caret line="422" selection-start-line="422" selection-end-line="422" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1869#1939#0" />
                 <element signature="e#1869#2127#0" />
                 <element signature="e#2132#2204#0" />
                 <element signature="e#2132#2394#0" />
-                <element signature="e#2400#2535#0" />
                 <element signature="e#3175#3302#0" />
                 <element signature="e#3438#3572#0" />
                 <element signature="e#3438#3708#0" />
@@ -86,7 +81,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gen/CoolBaseVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
+            <state relative-caret-position="195">
               <caret line="234" column="21" selection-start-line="234" selection-start-column="21" selection-end-line="234" selection-end-column="21" />
             </state>
           </provider>
@@ -95,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Cool.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+            <state relative-caret-position="117">
+              <caret line="28" column="14" selection-start-line="28" selection-end-line="29" />
             </state>
           </provider>
         </entry>
@@ -113,8 +108,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testCases/g1.cl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" lean-forward="true" selection-end-line="14" selection-end-column="4" />
+            <state relative-caret-position="216">
+              <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -122,8 +117,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/testCases/g2.cl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="198">
+              <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -131,8 +126,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testCases/goodParser.cl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+            <state relative-caret-position="288">
+              <caret line="16" column="16" selection-end-line="25" />
             </state>
           </provider>
         </entry>
@@ -141,9 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>nega</find>
-      <find>eq</find>
-      <find>if</find>
       <find>isv</find>
       <find>smaa</find>
       <find>whi</find>
@@ -152,7 +144,6 @@
       <find>bloc</find>
       <find>meth</find>
       <find>getT</find>
-      <find>own</find>
       <find>let</find>
       <find>get</find>
       <find>visite</find>
@@ -166,16 +157,21 @@
       <find>visitBloc</find>
       <find>begin</find>
       <find>visitbloc</find>
-      <find>assignmen</find>
       <find>while</find>
-      <find>colun</find>
       <find>func</find>
       <find>visitif</find>
+      <find>colun</find>
+      <find>own</find>
+      <find>openp_</find>
+      <find>assignmen</find>
+      <find>assign</find>
+      <find>heer</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="wafaaismail &lt;wafaaismail595@gmail.com&gt;app" />
         <option value="wafaaismail &lt;wafaaismail595@gmail.com&gt;" />
       </list>
     </option>
@@ -193,11 +189,11 @@
         <option value="$PROJECT_DIR$/gen/CoolBaseVisitor.java" />
         <option value="$PROJECT_DIR$/testCases/good.cl" />
         <option value="$PROJECT_DIR$/gen/Value.java" />
-        <option value="$PROJECT_DIR$/src/Cool.g4" />
         <option value="$PROJECT_DIR$/testCases/g.cl" />
-        <option value="$PROJECT_DIR$/gen/myVisitor.java" />
         <option value="$PROJECT_DIR$/testCases/g1.cl" />
+        <option value="$PROJECT_DIR$/src/Cool.g4" />
         <option value="$PROJECT_DIR$/testCases/g2.cl" />
+        <option value="$PROJECT_DIR$/gen/myVisitor.java" />
       </list>
     </option>
   </component>
@@ -360,7 +356,14 @@
       <option name="project" value="LOCAL" />
       <updated>1559018106855</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="apply test and edit functions &#10;and add test example">
+      <created>1559165712585</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1559165712609</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -385,7 +388,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24132231" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32396695" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -409,7 +412,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="implementation of visitor pattern to build 3 add code , all is working except the result values after operations need to check it . need to continue implementation of productions and get simple programs to test then update readme" />
     <MESSAGE value="add implementation to additional classes , write Description , scoope under construction ." />
-    <option name="LAST_COMMIT_MESSAGE" value="add implementation to additional classes , write Description , scoope under construction ." />
+    <MESSAGE value="apply test and edit functions &#10;and add test example" />
+    <option name="LAST_COMMIT_MESSAGE" value="apply test and edit functions &#10;and add test example" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -502,10 +506,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gen/CoolBaseVisitor.java">
+    <entry file="file://$PROJECT_DIR$/testCases/g1">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testCases/goodParser.cl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="234" column="21" selection-start-line="234" selection-start-column="21" selection-end-line="234" selection-end-column="21" />
+        <state relative-caret-position="288">
+          <caret line="16" column="16" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testCases/g1.cl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -519,34 +533,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Cool.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testCases/goodParser.cl">
+    <entry file="file://$PROJECT_DIR$/testCases/g.cl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testCases/g1">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/src/Cool.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="28" column="14" selection-start-line="28" selection-end-line="29" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gen/myVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="309" column="29" selection-start-line="309" selection-start-column="29" selection-end-line="309" selection-end-column="29" />
+        <state relative-caret-position="18">
+          <caret line="422" selection-start-line="422" selection-end-line="422" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1869#1939#0" />
             <element signature="e#1869#2127#0" />
             <element signature="e#2132#2204#0" />
             <element signature="e#2132#2394#0" />
-            <element signature="e#2400#2535#0" />
             <element signature="e#3175#3302#0" />
             <element signature="e#3438#3572#0" />
             <element signature="e#3438#3708#0" />
@@ -580,24 +590,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testCases/g.cl">
+    <entry file="file://$PROJECT_DIR$/gen/CoolBaseVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testCases/g1.cl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" lean-forward="true" selection-end-line="14" selection-end-column="4" />
+        <state relative-caret-position="195">
+          <caret line="234" column="21" selection-start-line="234" selection-start-column="21" selection-end-line="234" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testCases/g2.cl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="198">
+          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
         </state>
       </provider>
     </entry>

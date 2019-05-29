@@ -1,5 +1,4 @@
 
-
 import java.time.temporal.ValueRange;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -410,27 +409,12 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         return new Value(t.toString());
     }
     //expr (AT TYPE)? DOT ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # methodCall
-    @Override public Value visitMethodCall(CoolParser.MethodCallContext ctx) {
-        Temp t = new Temp();
-
-        int counter = 0;
-        if(ctx.getChildCount() > 3){// 3 because initially we have 3 tokens for a function: functionName, ( and ) For example, foo().
-            counter++;
-            System.out.println(" PushParam " + visit(ctx.expr(0)) + "\n");
-            for(int i = 0 ; i < (ctx.getChildCount() - 4) / 2 ; i++){
-                // The above calculation to exclude the comma if there are more than one parameter as we want only the parameters.
-                counter++;
-                System.out.println(" PushParam " + visit(ctx.expr(i + 1)) + "\n");
-            }
-        }
-        System.out.println(t.toString() + " LCall " + ctx.ID().getText() + "\n");
-        System.out.println(" PopParams " + counter*4 + "\n");
-        System.out.println("heere"+t.toString());
-        return new Value(t.toString());
-
-    }
-
-
+//    @Override public Value visitMethodCall(CoolParser.MethodCallContext ctx) {
+//
+//
+//    }
+//
+//
 
     /**
      * @Class : own method call
@@ -438,8 +422,20 @@ public class myVisitor extends CoolBaseVisitor<Value> {
      * @Description : method in form id (params)
      * */
      @Override public Value visitOwnMethodCall(CoolParser.OwnMethodCallContext ctx) {
-        Temp t = new Temp();
-        return new Value(t.toString());
+         Temp t = new Temp();
+         int counter = 0;
+         if(ctx.getChildCount() > 3){// 3 because initially we have 3 tokens for a function: functionName, ( and ) For example, foo().
+             counter++;
+             System.out.println(" PushParam " + visit(ctx.expr(0)) + "\n");
+             for(int i = 0 ; i < (ctx.getChildCount() - 4) / 2 ; i++){
+                 // The above calculation to exclude the comma if there are more than one parameter as we want only the parameters.
+                 counter++;
+                 System.out.println(" PushParam " + visit(ctx.expr(i + 1)) + "\n");
+             }
+         }
+         System.out.println(t.toString() + " LCall " + ctx.ID().getText() + "\n");
+         System.out.println(" PopParams " + counter*4 + "\n");
+         return new Value(t.toString());
     }
 	
     /**
@@ -447,11 +443,14 @@ public class myVisitor extends CoolBaseVisitor<Value> {
      * @production : LET ID COLUN TYPE (ASSIGN_OPERATOR expr)? (COMMA ID COLUN TYPE (ASSIGN_OPERATOR expr)?)* IN expr # letIn
      * @Description : Declare variable in scope
      * */
-//    @Override public Value visitLetIn(CoolParser.LetInContext ctx) {
-//      String id = ctx.ID().getText();
-//
-//        return visitChildren(ctx);
-//    }
+    @Override public Value visitLetIn(CoolParser.LetInContext ctx) {
+        Temp temp = new Temp();
+        String id = ctx.ID(0).getText();
+        Value value = visit(ctx.expr(0));
+        System.out.println(temp.toString()+ " = " + value);
+        System.out.println(id.toString() + " = " + temp.toString());
+        return new Value(temp.toString());
+    }
 
 
 }
