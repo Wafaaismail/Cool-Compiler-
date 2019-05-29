@@ -1,6 +1,4 @@
 
-
-
 class Main{
    main():Object{
    {
@@ -9,7 +7,6 @@ class Main{
    while x<5 LOOP
         x<-6+1
     POOL;
-
-
+}
 };
 };

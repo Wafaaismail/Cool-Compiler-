@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b73d8150-988b-4dba-8701-9dee03fe84a2" name="Default Changelist" comment="implementation of visitor pattern to build 3 add code , all is working except the result values after operations need to check it . need to continue implementation of productions and get simple programs to test then update readme">
+    <list default="true" id="b73d8150-988b-4dba-8701-9dee03fe84a2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/Value.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/Value.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/myVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/myVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output/g.cl-lex" beforeDir="false" afterPath="$PROJECT_DIR$/output/g.cl-lex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/good.cl-lex" beforeDir="false" afterPath="$PROJECT_DIR$/output/good.cl-lex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/compiler/CoolBaseVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/CoolBaseVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/compiler/Value.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/Value.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/compiler/myVisitor$Label.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/myVisitor$Label.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/compiler/myVisitor$Temp.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/myVisitor$Temp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production/compiler/myVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/production/compiler/myVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Cool.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cool.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testCases/g.cl" beforeDir="false" afterPath="$PROJECT_DIR$/testCases/g.cl" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,68 +25,114 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gen/myVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
+            <state relative-caret-position="239">
+              <caret line="309" column="29" selection-start-line="309" selection-start-column="29" selection-end-line="309" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#888#903#0" expanded="true" />
-                <element signature="docComment;class#SymbolTable#0;class#myVisitor#0" />
-                <element signature="class#SymbolTable#0;class#myVisitor#0" />
-                <element signature="e#950#951#0" expanded="true" />
-                <element signature="e#997#998#0" expanded="true" />
-                <element signature="docComment;class#Temp#0;class#myVisitor#0" />
-                <element signature="class#Temp#0;class#myVisitor#0" />
-                <element signature="docComment;class#Label#0;class#myVisitor#0" />
-                <element signature="class#Label#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitAssignment#0;class#myVisitor#0" />
-                <element signature="method#visitAssignment#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitInt#0;class#myVisitor#0" />
-                <element signature="method#visitInt#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitString#0;class#myVisitor#0" />
-                <element signature="method#visitString#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitFalse#0;class#myVisitor#0" />
-                <element signature="method#visitFalse#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitTrue#0;class#myVisitor#0" />
-                <element signature="method#visitTrue#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitId#0;class#myVisitor#0" />
-                <element signature="method#visitId#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitParentheses#0;class#myVisitor#0" />
-                <element signature="method#visitParentheses#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitBoolNot#0;class#myVisitor#0" />
-                <element signature="method#visitBoolNot#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitPlus#0;class#myVisitor#0" />
-                <element signature="method#visitPlus#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitMinus#0;class#myVisitor#0" />
-                <element signature="method#visitMinus#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitMultiplication#0;class#myVisitor#0" />
-                <element signature="method#visitMultiplication#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitDivision#0;class#myVisitor#0" />
-                <element signature="method#visitDivision#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitLessOREqual#0;class#myVisitor#0" />
-                <element signature="method#visitLessOREqual#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitSmallerThan#0;class#myVisitor#0" />
-                <element signature="method#visitSmallerThan#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitNegative#0;class#myVisitor#0" />
-                <element signature="method#visitNegative#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitEqual#0;class#myVisitor#0" />
-                <element signature="method#visitEqual#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitIf#0;class#myVisitor#0" />
-                <element signature="method#visitIf#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitIsvoid#0;class#myVisitor#0" />
-                <element signature="method#visitIsvoid#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitWhile#0;class#myVisitor#0" />
-                <element signature="method#visitWhile#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitCase#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitBlock#0;class#myVisitor#0" />
-                <element signature="method#visitBlock#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitOwnMethodCall#0;class#myVisitor#0" />
-                <element signature="method#visitOwnMethodCall#0;class#myVisitor#0" />
-                <element signature="docComment;method#visitLetIn#0;class#myVisitor#0" />
-                <element signature="method#visitLetIn#0;class#myVisitor#0" />
+                <element signature="e#1869#1939#0" />
+                <element signature="e#1869#2127#0" />
+                <element signature="e#2132#2204#0" />
+                <element signature="e#2132#2394#0" />
+                <element signature="e#2400#2535#0" />
+                <element signature="e#3175#3302#0" />
+                <element signature="e#3438#3572#0" />
+                <element signature="e#3438#3708#0" />
+                <element signature="e#3714#3818#0" />
+                <element signature="e#3714#3949#0" />
+                <element signature="e#3955#4049#0" />
+                <element signature="e#3955#4181#0" />
+                <element signature="e#4187#4277#0" />
+                <element signature="e#4187#4596#0" />
+                <element signature="e#4602#4738#0" />
+                <element signature="e#4602#4861#0" />
+                <element signature="e#4867#4994#0" />
+                <element signature="e#4867#5259#0" />
+                <element signature="e#5264#5383#0" />
+                <element signature="e#5264#5715#0" />
+                <element signature="e#5721#5840#0" />
+                <element signature="e#5721#6171#0" />
+                <element signature="e#6669#6792#0" />
+                <element signature="e#6669#7176#0" />
+                <element signature="e#7182#7332#0" />
+                <element signature="e#7182#7666#0" />
+                <element signature="e#7672#8137#0" />
+                <element signature="e#8143#8264#0" />
+                <element signature="e#8988#9127#0" />
+                <element signature="e#9525#9641#0" />
+                <element signature="e#9525#9941#0" />
+                <element signature="e#9947#10100#0" />
+                <element signature="e#10462#10621#0" />
+                <element signature="e#10723#10873#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gen/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gen/CoolBaseVisitor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="234" column="21" selection-start-line="234" selection-start-column="21" selection-end-line="234" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Cool.g4">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testCases/g.cl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testCases/g1.cl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="13" lean-forward="true" selection-end-line="14" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/testCases/g2.cl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testCases/goodParser.cl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -91,20 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>true</find>
-      <find>paran</find>
-      <find>id</find>
-      <find>parentheses</find>
-      <find>Bool</find>
-      <find>min</find>
-      <find>mul</find>
-      <find>divi</find>
-      <find>ass</find>
-      <find>assi</find>
-      <find>visitid</find>
-      <find>tmemory</find>
-      <find>less</find>
-      <find>tval</find>
       <find>nega</find>
       <find>eq</find>
       <find>if</find>
@@ -117,10 +153,24 @@
       <find>meth</find>
       <find>getT</find>
       <find>own</find>
-      <find>visite</find>
-      <find>method</find>
       <find>let</find>
       <find>get</find>
+      <find>visite</find>
+      <find>method</find>
+      <find>methodcall</find>
+      <find>assignment</find>
+      <find>proper</find>
+      <find>visitblock</find>
+      <find>star</find>
+      <find>call</find>
+      <find>visitBloc</find>
+      <find>begin</find>
+      <find>visitbloc</find>
+      <find>assignmen</find>
+      <find>while</find>
+      <find>colun</find>
+      <find>func</find>
+      <find>visitif</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -142,10 +192,12 @@
         <option value="$PROJECT_DIR$/gen/Main.java" />
         <option value="$PROJECT_DIR$/gen/CoolBaseVisitor.java" />
         <option value="$PROJECT_DIR$/testCases/good.cl" />
-        <option value="$PROJECT_DIR$/src/Cool.g4" />
-        <option value="$PROJECT_DIR$/gen/myVisitor.java" />
-        <option value="$PROJECT_DIR$/testCases/g.cl" />
         <option value="$PROJECT_DIR$/gen/Value.java" />
+        <option value="$PROJECT_DIR$/src/Cool.g4" />
+        <option value="$PROJECT_DIR$/testCases/g.cl" />
+        <option value="$PROJECT_DIR$/gen/myVisitor.java" />
+        <option value="$PROJECT_DIR$/testCases/g1.cl" />
+        <option value="$PROJECT_DIR$/testCases/g2.cl" />
       </list>
     </option>
   </component>
@@ -154,17 +206,6 @@
       <expand />
       <select />
     </treeState>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/compiler.iml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/.idea/compiler.xml" />
-      </list>
-    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="27" />
@@ -176,22 +217,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="compiler" type="58d84e3e:PackageViewProjectNode" />
-              <item name="compiler" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="compiler" type="58d84e3e:PackageViewProjectNode" />
-              <item name="compiler" type="616d4139:PackageViewModuleNode" />
-              <item name="Libraries" type="5c3f07af:PackageViewLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Default Changelist'; set:Default Changelist; class com.intellij.packageDependencies.ChangeListScope">
           <expand>
@@ -248,6 +273,12 @@
               <item name="compiler" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="compiler" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="~/Desktop/compiler" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="compiler" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="compiler" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="~/Desktop/compiler" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="testCases" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
@@ -255,6 +286,22 @@
         </subPane>
       </pane>
       <pane id="ProjectPane" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="compiler" type="58d84e3e:PackageViewProjectNode" />
+              <item name="compiler" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="compiler" type="58d84e3e:PackageViewProjectNode" />
+              <item name="compiler" type="616d4139:PackageViewModuleNode" />
+              <item name="Libraries" type="5c3f07af:PackageViewLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -306,7 +353,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558934356147</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add implementation to additional classes , write Description , scoope under construction .">
+      <created>1559018106854</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1559018106855</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -322,7 +376,7 @@
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.26136363" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2659091" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -331,7 +385,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3272727" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24132231" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -354,21 +408,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="implementation of visitor pattern to build 3 add code , all is working except the result values after operations need to check it . need to continue implementation of productions and get simple programs to test then update readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="implementation of visitor pattern to build 3 add code , all is working except the result values after operations need to check it . need to continue implementation of productions and get simple programs to test then update readme" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/gen/myVisitor.java</url>
-          <line>103</line>
-          <properties class="myVisitor" method="visitInt">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="add implementation to additional classes , write Description , scoope under construction ." />
+    <option name="LAST_COMMIT_MESSAGE" value="add implementation to additional classes , write Description , scoope under construction ." />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -440,20 +481,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testCases/goodParser.cl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testCases/g.cl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gen/Value.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -477,15 +504,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gen/CoolBaseVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="67" column="30" selection-start-line="67" selection-end-line="68" />
+        <state relative-caret-position="142">
+          <caret line="234" column="21" selection-start-line="234" selection-start-column="21" selection-end-line="234" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gen/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+        <state relative-caret-position="118">
+          <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -494,72 +521,83 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Cool.g4">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="42" selection-end-column="19" />
+        <state relative-caret-position="176">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/testCases/goodParser.cl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testCases/g1">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/gen/myVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
+        <state relative-caret-position="239">
+          <caret line="309" column="29" selection-start-line="309" selection-start-column="29" selection-end-line="309" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#888#903#0" expanded="true" />
-            <element signature="docComment;class#SymbolTable#0;class#myVisitor#0" />
-            <element signature="class#SymbolTable#0;class#myVisitor#0" />
-            <element signature="e#950#951#0" expanded="true" />
-            <element signature="e#997#998#0" expanded="true" />
-            <element signature="docComment;class#Temp#0;class#myVisitor#0" />
-            <element signature="class#Temp#0;class#myVisitor#0" />
-            <element signature="docComment;class#Label#0;class#myVisitor#0" />
-            <element signature="class#Label#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitAssignment#0;class#myVisitor#0" />
-            <element signature="method#visitAssignment#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitInt#0;class#myVisitor#0" />
-            <element signature="method#visitInt#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitString#0;class#myVisitor#0" />
-            <element signature="method#visitString#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitFalse#0;class#myVisitor#0" />
-            <element signature="method#visitFalse#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitTrue#0;class#myVisitor#0" />
-            <element signature="method#visitTrue#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitId#0;class#myVisitor#0" />
-            <element signature="method#visitId#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitParentheses#0;class#myVisitor#0" />
-            <element signature="method#visitParentheses#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitBoolNot#0;class#myVisitor#0" />
-            <element signature="method#visitBoolNot#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitPlus#0;class#myVisitor#0" />
-            <element signature="method#visitPlus#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitMinus#0;class#myVisitor#0" />
-            <element signature="method#visitMinus#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitMultiplication#0;class#myVisitor#0" />
-            <element signature="method#visitMultiplication#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitDivision#0;class#myVisitor#0" />
-            <element signature="method#visitDivision#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitLessOREqual#0;class#myVisitor#0" />
-            <element signature="method#visitLessOREqual#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitSmallerThan#0;class#myVisitor#0" />
-            <element signature="method#visitSmallerThan#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitNegative#0;class#myVisitor#0" />
-            <element signature="method#visitNegative#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitEqual#0;class#myVisitor#0" />
-            <element signature="method#visitEqual#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitIf#0;class#myVisitor#0" />
-            <element signature="method#visitIf#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitIsvoid#0;class#myVisitor#0" />
-            <element signature="method#visitIsvoid#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitWhile#0;class#myVisitor#0" />
-            <element signature="method#visitWhile#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitCase#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitBlock#0;class#myVisitor#0" />
-            <element signature="method#visitBlock#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitOwnMethodCall#0;class#myVisitor#0" />
-            <element signature="method#visitOwnMethodCall#0;class#myVisitor#0" />
-            <element signature="docComment;method#visitLetIn#0;class#myVisitor#0" />
-            <element signature="method#visitLetIn#0;class#myVisitor#0" />
+            <element signature="e#1869#1939#0" />
+            <element signature="e#1869#2127#0" />
+            <element signature="e#2132#2204#0" />
+            <element signature="e#2132#2394#0" />
+            <element signature="e#2400#2535#0" />
+            <element signature="e#3175#3302#0" />
+            <element signature="e#3438#3572#0" />
+            <element signature="e#3438#3708#0" />
+            <element signature="e#3714#3818#0" />
+            <element signature="e#3714#3949#0" />
+            <element signature="e#3955#4049#0" />
+            <element signature="e#3955#4181#0" />
+            <element signature="e#4187#4277#0" />
+            <element signature="e#4187#4596#0" />
+            <element signature="e#4602#4738#0" />
+            <element signature="e#4602#4861#0" />
+            <element signature="e#4867#4994#0" />
+            <element signature="e#4867#5259#0" />
+            <element signature="e#5264#5383#0" />
+            <element signature="e#5264#5715#0" />
+            <element signature="e#5721#5840#0" />
+            <element signature="e#5721#6171#0" />
+            <element signature="e#6669#6792#0" />
+            <element signature="e#6669#7176#0" />
+            <element signature="e#7182#7332#0" />
+            <element signature="e#7182#7666#0" />
+            <element signature="e#7672#8137#0" />
+            <element signature="e#8143#8264#0" />
+            <element signature="e#8988#9127#0" />
+            <element signature="e#9525#9641#0" />
+            <element signature="e#9525#9941#0" />
+            <element signature="e#9947#10100#0" />
+            <element signature="e#10462#10621#0" />
+            <element signature="e#10723#10873#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testCases/g.cl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testCases/g1.cl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" lean-forward="true" selection-end-line="14" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testCases/g2.cl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>

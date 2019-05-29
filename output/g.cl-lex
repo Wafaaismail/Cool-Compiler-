@@ -25,7 +25,8 @@ Line : 8, Type : 20, Value : 1
 Line : 9, Type : 9, Value : POOL
 Line : 9, Type : 47, Value : ;
 Line : 12, Type : 42, Value : }
-Line : 12, Type : 47, Value : ;
 Line : 13, Type : 42, Value : }
 Line : 13, Type : 47, Value : ;
-Line : 13, Type : -1, Value : <EOF>
+Line : 14, Type : 42, Value : }
+Line : 14, Type : 47, Value : ;
+Line : 15, Type : -1, Value : <EOF>
