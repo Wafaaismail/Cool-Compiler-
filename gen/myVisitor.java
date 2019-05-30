@@ -1,8 +1,13 @@
 
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.temporal.ValueRange;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Stack;
 
 // TODO: 28/05/19 scope problem
 /**
@@ -25,32 +30,47 @@ public class myVisitor extends CoolBaseVisitor<Value> {
     private Hashtable <String, String> tmemory = new Hashtable<String,String>();
     //temp ,val
     private Hashtable <Value, Value> tval = new Hashtable<Value,Value>();
-
-
-//    /**
-//    * @Class The SymbolTable  stores named identifiers, allows them to be located by name, and
-//       keeps track of its parent.
-//    * */
-//    public static class SymbolTable {
-//        private Hashtable table;
-//        public static Stack<SymbolTable> tableScope = new Stack<>();
-//        protected SymbolTable outer;
-//        public SymbolTable(SymbolTable st) {
-//            table = new Hashtable();
-//            outer = st;
-//        }
-//        public void put(String token, String value) {
-//            table.put(token, value);
-//        }
-//        public boolean get(String value) {
-//            for (SymbolTable tab = this ; tab != null ; tab = tab.outer) {
-//                if(tab.table.containsValue(value)){
-//                    return true;
-//                }
-//            }
-//            return false;
+//
+//    BufferedWriter writer;
+//
+//    {
+//
+//        try {
+//            writer = new BufferedWriter(new FileWriter("3AddCode.txt"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
 //        }
 //    }
+
+    /**
+    * @Class The SymbolTable  stores named identifiers, allows them to be located by name, and
+       keeps track of its parent.
+    * */
+    public static class SymbolTable {
+        private Hashtable symbolTable;
+        public static Stack<SymbolTable> scopeStack = new Stack<>();
+        protected SymbolTable outerSymbolTable;
+        public SymbolTable(SymbolTable table) {
+            symbolTable = new Hashtable();
+            outerSymbolTable = table;
+        }
+        public void put(String token, String value) {
+            symbolTable.put(token, value);
+            System.out.println(value+ "  is added in symbol table");
+
+        }
+        public boolean get(String value) {
+            for (SymbolTable tab = this ; tab != null ; tab = tab.outerSymbolTable) {
+                if(tab.symbolTable.containsValue(value)){
+                    System.out.println(value +"  is found in symbol table");
+                    return true;
+                }
+            }
+            System.out.println(value + "  is NOT found in symbol table");
+
+            return false;
+        }
+    }
 
     /**
      * @Class generate temp used in 3 add code to print*
@@ -81,9 +101,9 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         String id = ctx.ID().getText();
         Value value = visit(ctx.expr());
         Temp temp  = new Temp();
-//        if (!SymbolTable.tableScope.peek().get(id)){
-//            System.err.println("undeclared variable at :" + id);
-//        }
+        if (!SymbolTable.scopeStack.peek().get(id)){
+            System.err.println("undeclared variable at :" + id);
+        }
         memory.put(id, value);
         tmemory.put(id,temp.toString());
         tval.put(new Value(temp.toString()),value);
@@ -123,7 +143,7 @@ public class myVisitor extends CoolBaseVisitor<Value> {
     @Override public Value visitFalse(CoolParser.FalseContext ctx) {
 
         return new Value(Boolean.valueOf(ctx.getText()));
-	}
+    }
 
     /**
      * @Class :  true
@@ -187,7 +207,7 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         System.out.println(temp.toString() + " = " + left + " + " + right);
 
         return new Value(temp.toString());
-       }
+    }
 
     /**
      * @Class :  subtract
@@ -329,15 +349,15 @@ public class myVisitor extends CoolBaseVisitor<Value> {
      * @production :WHILE expr LOOP expr POOL # while
      * @Description : structure while loop : l1  expr+ goto l1
      * */
-   @Override public Value visitWhile(CoolParser.WhileContext ctx) {
+    @Override public Value visitWhile(CoolParser.WhileContext ctx) {
 
-       Label label = new Label();
-       System.out.println("Loop: " + label.toString()  + "\n" );
-       System.out.println("While");
-       this.visit(ctx.expr(0));
-       this.visit(ctx.expr(1));
-       System.out.println("go to " + label.toString() + "/n");
-       return Value.VOID;
+        Label label = new Label();
+        System.out.println("Loop: " + label.toString()  + "\n" );
+        System.out.println("While");
+        this.visit(ctx.expr(0));
+        this.visit(ctx.expr(1));
+        System.out.println("go to " + label.toString() + "/n");
+        return Value.VOID;
     }
 
     /**
@@ -355,21 +375,28 @@ public class myVisitor extends CoolBaseVisitor<Value> {
      * */
     //need test >> null pointer
     @Override public Value visitBlock(CoolParser.BlockContext ctx) {
-//        if (SymbolTable.tableScope.empty()){
-//            SymbolTable.tableScope.push(new SymbolTable(null));
-//        }else {
-//            SymbolTable.tableScope.push(new SymbolTable(SymbolTable.tableScope.peek()));
-//        }
+
+        if (SymbolTable.scopeStack.empty()){ // لو الستاك فاضي يبقى دا أول سكوب outerTable= null
+            SymbolTable.scopeStack.push(new SymbolTable(null));
+        }else {
+            SymbolTable.scopeStack.push(new SymbolTable(SymbolTable.scopeStack.peek()));
+            //push the current table in the stack , implicitly set the current table to new empty table
+            System.out.println("table id pushed" + SymbolTable.scopeStack.peek().toString());
+
+        }
+
+
         Temp temp = new Temp();
         Value data= null;
         System.out.println(temp.toString() + " Start Block :");
         for (int i=0; i<(ctx.getChildCount()-2)/2; i++){
             data = visit(ctx.expr(i));
         }
-        //SymbolTable.tableScope.pop();
+
+        SymbolTable.scopeStack.pop();
         return new Value(temp.toString());
     }
-    
+
     /**
      * @Class : property
      * @production : ID COLUN TYPE (ASSIGN_OPERATOR expr)? # property
@@ -377,20 +404,21 @@ public class myVisitor extends CoolBaseVisitor<Value> {
      * */
     @Override public Value visitProperty(CoolParser.PropertyContext ctx) {
         Temp temp = new Temp();
-//        if(SymbolTable.tableScope.peek().table.containsValue(ctx.ID(0).getText())){
-//            System.err.println("dublicate of declaration at ^" + ctx.ID(0).getText());
-//            return Value.VOID;
-//        }
-//        else{
-//            SymbolTable.tableScope.peek().put("ID", ctx.ID(0).getText());
-            if(ctx.getChildCount() > 3){
+        if(SymbolTable.scopeStack.peek().symbolTable.containsValue(ctx.ID().getText())){
+            System.err.println("duplicate of declaration at ^" + ctx.ID().getText());
+            return Value.VOID;
+        }
+        else {
+            SymbolTable.scopeStack.peek().put("ID", ctx.ID().getText());
+            if (ctx.getChildCount() > 3) {
                 System.out.println(temp.toString() +
                         ctx.ID().getText() + " = " + visit(ctx.expr()) + "\n");
             }
+
             return new Value(temp.toString());
-        //}
+        }
     }
-   
+
     /**
      * @Class : method
      * @production : ID OPENP_RANSIS (formal (COMMA formal)*)* CLOSE_PRANSIS COLUN TYPE OPEN_CURLY expr CLOSE_CURLY # method
@@ -409,48 +437,48 @@ public class myVisitor extends CoolBaseVisitor<Value> {
         return new Value(t.toString());
     }
     //expr (AT TYPE)? DOT ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # methodCall
-//    @Override public Value visitMethodCall(CoolParser.MethodCallContext ctx) {
-//
-//
-//    }
-//
-//
+    @Override public Value visitMethodCall(CoolParser.MethodCallContext ctx) {
+        Temp t = new Temp();
+
+        int counter = 0;
+        if(ctx.getChildCount() > 3){// 3 because initially we have 3 tokens for a function: functionName, ( and ) For example, foo().
+            counter++;
+            System.out.println(" PushParam " + visit(ctx.expr(0)) + "\n");
+            for(int i = 0 ; i < (ctx.getChildCount() - 4) / 2 ; i++){
+                // The above calculation to exclude the comma if there are more than one parameter as we want only the parameters.
+                counter++;
+                System.out.println(" PushParam " + visit(ctx.expr(i + 1)) + "\n");
+            }
+        }
+        System.out.println(t.toString() + " LCall " + ctx.ID().getText() + "\n");
+        System.out.println(" PopParams " + counter*4 + "\n");
+        System.out.println("heere"+t.toString());
+        return new Value(t.toString());
+
+    }
+
+
 
     /**
      * @Class : own method call
      * @production :ID OPENP_RANSIS (expr (COMMA expr)*)* CLOSE_PRANSIS # ownMethodCall
      * @Description : method in form id (params)
      * */
-     @Override public Value visitOwnMethodCall(CoolParser.OwnMethodCallContext ctx) {
-         Temp t = new Temp();
-         int counter = 0;
-         if(ctx.getChildCount() > 3){// 3 because initially we have 3 tokens for a function: functionName, ( and ) For example, foo().
-             counter++;
-             System.out.println(" PushParam " + visit(ctx.expr(0)) + "\n");
-             for(int i = 0 ; i < (ctx.getChildCount() - 4) / 2 ; i++){
-                 // The above calculation to exclude the comma if there are more than one parameter as we want only the parameters.
-                 counter++;
-                 System.out.println(" PushParam " + visit(ctx.expr(i + 1)) + "\n");
-             }
-         }
-         System.out.println(t.toString() + " LCall " + ctx.ID().getText() + "\n");
-         System.out.println(" PopParams " + counter*4 + "\n");
-         return new Value(t.toString());
+    @Override public Value visitOwnMethodCall(CoolParser.OwnMethodCallContext ctx) {
+        Temp t = new Temp();
+        return new Value(t.toString());
     }
-	
+
     /**
      * @Class : let
      * @production : LET ID COLUN TYPE (ASSIGN_OPERATOR expr)? (COMMA ID COLUN TYPE (ASSIGN_OPERATOR expr)?)* IN expr # letIn
      * @Description : Declare variable in scope
      * */
-    @Override public Value visitLetIn(CoolParser.LetInContext ctx) {
-        Temp temp = new Temp();
-        String id = ctx.ID(0).getText();
-        Value value = visit(ctx.expr(0));
-        System.out.println(temp.toString()+ " = " + value);
-        System.out.println(id.toString() + " = " + temp.toString());
-        return new Value(temp.toString());
-    }
+//    @Override public Value visitLetIn(CoolParser.LetInContext ctx) {
+//      String id = ctx.ID().getText();
+//
+//        return visitChildren(ctx);
+//    }
 
 
 }
